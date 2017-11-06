@@ -4,7 +4,6 @@ import android.app.Instrumentation;
 import android.support.annotation.LayoutRes;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,13 +17,7 @@ public class ViewTestRule<T extends View> extends ActivityTestRule<EmptyActivity
     private T view;
 
     public ViewTestRule(@LayoutRes int layoutId) {
-        this(ViewTestRule.<T>createInflateFromXmlViewCreator(layoutId));
-    }
-
-    static <T extends View> ViewCreator<T> createInflateFromXmlViewCreator(@LayoutRes int layoutId) {
-        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-        LayoutInflater layoutInflater = LayoutInflater.from(instrumentation.getTargetContext());
-        return new InflateFromXmlViewCreator<>(layoutId, layoutInflater);
+        this(new InflateFromXmlViewCreator<T>(layoutId));
     }
 
     public ViewTestRule(ViewCreator<T> viewCreator) {
@@ -40,12 +33,14 @@ public class ViewTestRule<T extends View> extends ActivityTestRule<EmptyActivity
     @Override
     protected void afterActivityLaunched() {
         super.afterActivityLaunched();
-        view = viewCreator.createView();
+        final EmptyActivity activity = getActivity();
+        view = viewCreator.createView(activity, (ViewGroup) activity.findViewById(android.R.id.content));
+
         runOnMainSynchronously(new Runner<T>() {
             @Override
             public void run(T view) {
                 ViewGroup.LayoutParams matchParent = new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT);
-                getActivity().setContentView(view, matchParent);
+                activity.setContentView(view, matchParent);
             }
         });
     }

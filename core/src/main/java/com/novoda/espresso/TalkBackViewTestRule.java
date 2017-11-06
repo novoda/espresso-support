@@ -10,7 +10,7 @@ public class TalkBackViewTestRule<T extends View> extends ViewTestRule<T> {
     private final TalkBackStateSettingRequester talkBackStateSettingRequester = new TalkBackStateSettingRequester();
 
     public TalkBackViewTestRule(@LayoutRes int layoutId) {
-        this(ViewTestRule.<T>createInflateFromXmlViewCreator(layoutId));
+        this(new InflateFromXmlViewCreator<T>(layoutId));
     }
 
     public TalkBackViewTestRule(ViewCreator<T> viewCreator) {
