@@ -17,11 +17,18 @@ public class ViewTestRule<T extends View> extends ActivityTestRule<EmptyActivity
 
     private T view;
 
-    public static <T extends View> ViewTestRule<T> withViewFromXml(@LayoutRes int layoutId) {
+    public ViewTestRule(@LayoutRes int layoutId) {
+        this(ViewTestRule.<T>createInflateFromXmlViewCreator(layoutId));
+    }
+
+    static <T extends View> ViewCreator<T> createInflateFromXmlViewCreator(@LayoutRes int layoutId) {
         Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
         LayoutInflater layoutInflater = LayoutInflater.from(instrumentation.getTargetContext());
-        ViewCreator<T> viewCreator = new InflateFromXmlViewCreator<>(layoutId, layoutInflater);
-        return new ViewTestRule<>(instrumentation, viewCreator);
+        return new InflateFromXmlViewCreator<>(layoutId, layoutInflater);
+    }
+
+    public ViewTestRule(ViewCreator<T> viewCreator) {
+        this(InstrumentationRegistry.getInstrumentation(), viewCreator);
     }
 
     public ViewTestRule(Instrumentation instrumentation, ViewCreator<T> viewCreator) {

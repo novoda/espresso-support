@@ -15,6 +15,7 @@ class InflateFromXmlViewCreator<T extends View> implements ViewCreator<T> {
         this.layoutInflater = layoutInflater;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public T createView() {
         return (T) layoutInflater.inflate(id, null);
