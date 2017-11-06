@@ -23,5 +23,4 @@ public class TalkBackActivityTestRule<T extends Activity> extends ActivityTestRu
         super.afterActivityFinished();
         talkBackStateSettingRequester.requestDisableTalkBack();
     }
-
 }

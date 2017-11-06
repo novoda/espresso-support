@@ -1,50 +1,63 @@
 package com.novoda.espresso;
 
 import android.app.Instrumentation;
-import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
-public class ViewTestRule<T extends View> extends ActivityTestRule<ViewActivity> {
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+
+public class ViewTestRule<T extends View> extends ActivityTestRule<EmptyActivity> {
 
     private final Instrumentation instrumentation;
+    private final ViewCreator<T> viewCreator;
 
-    @LayoutRes
-    private final int id;
+    private T view;
 
-    public ViewTestRule(@LayoutRes int id) {
-        super(ViewActivity.class);
-        this.id = id;
-        instrumentation = InstrumentationRegistry.getInstrumentation();
+    public static <T extends View> ViewTestRule<T> withViewFromXml(@LayoutRes int layoutId) {
+        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+        LayoutInflater layoutInflater = LayoutInflater.from(instrumentation.getTargetContext());
+        ViewCreator<T> viewCreator = new InflateFromXmlViewCreator<>(layoutId, layoutInflater);
+        return new ViewTestRule<>(instrumentation, viewCreator);
+    }
+
+    public ViewTestRule(Instrumentation instrumentation, ViewCreator<T> viewCreator) {
+        super(EmptyActivity.class);
+        this.instrumentation = instrumentation;
+        this.viewCreator = viewCreator;
     }
 
     @Override
-    protected Intent getActivityIntent() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.putExtra(ViewActivity.EXTRA_LAYOUT_ID, id);
-        return intent;
+    protected void afterActivityLaunched() {
+        super.afterActivityLaunched();
+        view = viewCreator.createView();
+        runOnMainSynchronously(new Runner<T>() {
+            @Override
+            public void run(T view) {
+                ViewGroup.LayoutParams matchParent = new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT);
+                getActivity().setContentView(view, matchParent);
+            }
+        });
     }
 
     public void runOnMainSynchronously(final Runner<T> runner) {
         instrumentation.runOnMainSync(new Runnable() {
             @Override
             public void run() {
-                T view = getView();
                 runner.run(view);
             }
         });
     }
 
     public T getView() {
-        return (T) getActivity().getView();
+        return view;
     }
 
     public interface Runner<T> {
 
         void run(T view);
-
     }
-
 }

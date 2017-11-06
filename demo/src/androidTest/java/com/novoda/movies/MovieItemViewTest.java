@@ -34,7 +34,7 @@ public class MovieItemViewTest {
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Rule
-    public ViewTestRule<MovieItemView> viewTestRule = new ViewTestRule<>(R.layout.test_movie_item_view);
+    public ViewTestRule<MovieItemView> viewTestRule = ViewTestRule.withViewFromXml(R.layout.test_movie_item_view);
 
     @Mock
     MovieItemView.Listener movieItemListener;
