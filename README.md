@@ -59,6 +59,7 @@ Often, our apps will behave differently when TalkBack is enabled to offer a more
 Use either `TalkBackViewTestRule` or `TalkBackActivityTestRule` - TalkBack will be enabled before each test is run and disabled after each test finishes.
 
 :warning: This rule requires the `extras` module to be included for the app under test, so it can open the `TalkBackStateSettingActivity`.
+
 :warning: Toggling TalkBack state requires the `WRITE_SECURE_SETTINGS` permission being set for the app under test.
 
 ```bash
@@ -81,10 +82,14 @@ context.startActivity(intent);
 
 ## Demo
 
-You can run the demo tests with the following commands:
+You can run the demo tests with the following command:
 
 ```bash
-./gradlew demo:installDebug; adb shell pm grant com.novoda.movies android.permission.WRITE_SECURE_SETTINGS; adb shell am start -a "com.novoda.espresso.DISABLE_TALKBACK"; ./gradlew demo:cAT; adb shell am start -a "com.novoda.espresso.DISABLE_TALKBACK";
+./gradlew demo:installDebug;\
+adb shell pm grant com.novoda.movies android.permission.WRITE_SECURE_SETTINGS;\
+adb shell am start -a "com.novoda.espresso.DISABLE_TALKBACK";\
+./gradlew demo:cAT;\
+adb shell am start -a "com.novoda.espresso.DISABLE_TALKBACK";
 ```
 
 You have to install the app first to set the permission. We also disable TalkBack before and after the tests so we don't mess up non-TalkBack tests.
