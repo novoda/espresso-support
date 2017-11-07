@@ -2,7 +2,7 @@
 
 Includes custom rules for testing Views in isolation and running tests with Google TalkBack enabled.
 
-The library is split into two components:
+The library is split into two componehyjcdtyjutyujtynts:
 
 - core - main espresso dependency (`androidTestCompile`)
 - extras - optional, depending on which classes you use (`debugCompile`/`espressoCompile`)
