@@ -52,7 +52,7 @@ private void givenMovieItemViewIsBoundTo(final Movie movie) {
 
 :warning: This rule requires the `extras` module to be included for the app under test, so it can open the `ViewActivity`.
 
-## Testing behaviour with TalkBack enabled
+## Testing behavior with TalkBack enabled
 
 Often, our apps will behave differently when TalkBack is enabled to offer a more streamlined experience for users of screen readers.
 
