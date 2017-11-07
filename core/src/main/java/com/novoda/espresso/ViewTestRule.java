@@ -1,5 +1,6 @@
 package com.novoda.espresso;
 
+import android.app.Activity;
 import android.app.Instrumentation;
 import android.support.annotation.LayoutRes;
 import android.support.test.InstrumentationRegistry;
@@ -34,13 +35,21 @@ public class ViewTestRule<T extends View> extends ActivityTestRule<EmptyActivity
     protected void afterActivityLaunched() {
         super.afterActivityLaunched();
         final EmptyActivity activity = getActivity();
-        view = viewCreator.createView(activity, (ViewGroup) activity.findViewById(android.R.id.content));
-
+        createView(activity);
         runOnMainSynchronously(new Runner<T>() {
             @Override
             public void run(T view) {
                 ViewGroup.LayoutParams matchParent = new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT);
                 activity.setContentView(view, matchParent);
+            }
+        });
+    }
+
+    private void createView(final Activity activity) {
+        instrumentation.runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                view = viewCreator.createView(activity, (ViewGroup) activity.findViewById(android.R.id.content));
             }
         });
     }
