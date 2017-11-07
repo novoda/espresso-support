@@ -39,7 +39,7 @@ public class ViewTestRule<T extends View> extends ActivityTestRule<EmptyActivity
         runOnMainSynchronously(new Runner<T>() {
             @Override
             public void run(T view) {
-                activity.setContentView(view);
+                activity.setContentView(view, view.getLayoutParams());
             }
         });
     }
