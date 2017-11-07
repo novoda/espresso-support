@@ -27,7 +27,7 @@ Use the `ViewTestRule`, passing in a layout resource. It'll inflate the resource
 public ViewTestRule<MovieItemView> rule = new ViewTestRule<>(R.layout.test_movie_item_view);
 ```
 
-You can write BDD style tests here, highlighting the expected behaviour for your custom views, using a mixture of Espresso ViewActions and Mockito verifies:
+You can write BDD style tests here, highlighting the expected behavior for your custom views, using a mixture of Espresso ViewActions and Mockito verifies:
 
 ```java
 @Test
@@ -52,7 +52,7 @@ private void givenMovieItemViewIsBoundTo(final Movie movie) {
 
 :warning: This rule requires the `extras` module to be included for the app under test, so it can open the `ViewActivity`.
 
-## Testing behaviour with TalkBack enabled
+## Testing behavior with TalkBack enabled
 
 Often, our apps will behave differently when TalkBack is enabled to offer a more streamlined experience for users of screen readers.
 
