@@ -39,8 +39,7 @@ public class ViewTestRule<T extends View> extends ActivityTestRule<EmptyActivity
         runOnMainSynchronously(new Runner<T>() {
             @Override
             public void run(T view) {
-                ViewGroup.LayoutParams matchParent = new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT);
-                activity.setContentView(view, matchParent);
+                activity.setContentView(view);
             }
         });
     }
