@@ -8,7 +8,7 @@
 
   <application tools:ignore="GoogleAppIndexingWarning">
 
-    <activity android:name=".ViewActivity" />
+    <activity android:name=".EmptyActivity" />
 
     <activity android:name=".TalkBackStateSettingActivity">
 
