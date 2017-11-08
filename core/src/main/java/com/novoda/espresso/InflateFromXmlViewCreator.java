@@ -15,7 +15,7 @@ class InflateFromXmlViewCreator<T extends View> implements ViewCreator<T> {
         this.id = id;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // unchecked cast of View from XML
     @Override
     public T createView(Context context, ViewGroup parentView) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
