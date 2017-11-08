@@ -25,7 +25,7 @@ public class ViewTestRule<T extends View> extends ActivityTestRule<EmptyActivity
         this(InstrumentationRegistry.getInstrumentation(), viewCreator);
     }
 
-    public ViewTestRule(Instrumentation instrumentation, ViewCreator<T> viewCreator) {
+    protected ViewTestRule(Instrumentation instrumentation, ViewCreator<T> viewCreator) {
         super(EmptyActivity.class);
         this.instrumentation = instrumentation;
         this.viewCreator = viewCreator;

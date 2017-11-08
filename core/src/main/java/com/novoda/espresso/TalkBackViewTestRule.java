@@ -17,7 +17,7 @@ public class TalkBackViewTestRule<T extends View> extends ViewTestRule<T> {
         this(InstrumentationRegistry.getInstrumentation(), viewCreator);
     }
 
-    public TalkBackViewTestRule(Instrumentation instrumentation, ViewCreator<T> viewCreator) {
+    protected TalkBackViewTestRule(Instrumentation instrumentation, ViewCreator<T> viewCreator) {
         super(instrumentation, viewCreator);
     }
 
