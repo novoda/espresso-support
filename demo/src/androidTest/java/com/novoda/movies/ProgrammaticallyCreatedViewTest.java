@@ -12,8 +12,6 @@ import com.novoda.espresso.ViewTestRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -26,9 +24,6 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 public class ProgrammaticallyCreatedViewTest {
 
     private static final String TEXT = "Hello world!";
-
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Rule
     public ViewTestRule<TextView> viewTestRule = new ViewTestRule<>(new TextViewCreator());
