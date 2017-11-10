@@ -31,7 +31,15 @@ public class ProgrammaticallyCreatedViewTest {
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Rule
-    public ViewTestRule<TextView> viewTestRule = new ViewTestRule<>(new ViewCreator<TextView>() {
+    public ViewTestRule<TextView> viewTestRule = new ViewTestRule<>(new TextViewCreator());
+
+    @Test
+    public void createdViewIsDisplayed() {
+        onView(withText(TEXT)).check(matches(isDisplayed()));
+    }
+
+    private static class TextViewCreator implements ViewCreator<TextView> {
+
         @Override
         public TextView createView(Context context, ViewGroup parentView) {
             TextView textView = new TextView(context);
@@ -40,10 +48,5 @@ public class ProgrammaticallyCreatedViewTest {
             textView.setText(TEXT);
             return textView;
         }
-    });
-
-    @Test
-    public void createdViewIsDisplayed() {
-        onView(withText(TEXT)).check(matches(isDisplayed()));
     }
 }
