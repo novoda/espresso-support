@@ -18,6 +18,8 @@ debugCompile 'com.novoda:espresso-support-extras:<latest-version>'
 androidTestCompile 'com.novoda:espresso-support:<latest-version>'
 ```
 
+See `demo/androidTest` for examples.
+
 ## Testing views in isolation
 
 Use the `ViewTestRule`, passing in a layout resource. It'll inflate the resource into the `ViewActivity` with `MATCH_PARENT` for both dimensions. You can use `rule.getView()` to obtain an instance of the View and it'll be typed to the class you specified.
