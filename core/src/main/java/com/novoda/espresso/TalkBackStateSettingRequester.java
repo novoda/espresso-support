@@ -10,19 +10,24 @@ import static com.novoda.espresso.TalkBackStateSettingActivity.ACTION_ENABLE_TAL
 
 /**
  * Send intents to TalkBackStateSettingActivity to start and stop TalkBack.
- *
+ * <p>
  * By default, includes a delay after sending the intent to allow the state to change. This is customizable
  * via the constructor {@link TalkBackStateSettingRequester#TalkBackStateSettingRequester(long, Context)}.
  */
 public class TalkBackStateSettingRequester {
 
-    private static final int DEFAULT_DELAY_MILLIS = 1500;
-
     private final long delayMillis;
     private final Context context;
 
     public TalkBackStateSettingRequester() {
-        this(DEFAULT_DELAY_MILLIS, InstrumentationRegistry.getTargetContext());
+        this(0);
+    }
+
+    /**
+     * @param delayMillis time to sleep after toggling TalkBack state
+     */
+    public TalkBackStateSettingRequester(long delayMillis) {
+        this(delayMillis, InstrumentationRegistry.getTargetContext());
     }
 
     /**
