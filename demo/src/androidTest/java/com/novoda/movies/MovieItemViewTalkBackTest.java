@@ -3,13 +3,14 @@ package com.novoda.movies;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.novoda.espresso.TalkBackViewTestRule;
+import com.novoda.espresso.TalkBackTestRule;
 import com.novoda.espresso.ViewTestRule;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
@@ -18,9 +19,7 @@ import org.mockito.junit.MockitoRule;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static android.support.test.espresso.matcher.ViewMatchers.*;
 import static com.novoda.espresso.AccessibilityViewMatchers.withUsageHintOnClick;
 import static com.novoda.espresso.AccessibilityViewMatchers.withUsageHintOnLongClick;
 import static org.hamcrest.CoreMatchers.is;
@@ -34,8 +33,10 @@ public class MovieItemViewTalkBackTest {
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
+    private ViewTestRule<MovieItemView> viewTestRule = new ViewTestRule<>(R.layout.test_movie_item_view);
+
     @Rule
-    public ViewTestRule<MovieItemView> viewTestRule = new TalkBackViewTestRule<>(R.layout.test_movie_item_view);
+    public RuleChain chain = RuleChain.outerRule(new TalkBackTestRule()).around(viewTestRule);
 
     @Mock
     MovieItemView.Listener movieItemListener;
