@@ -58,29 +58,20 @@ private void givenMovieItemViewIsBoundTo(final Movie movie) {
 
 Often, our apps will behave differently when TalkBack is enabled to offer a more streamlined experience for users of screen readers.
 
-Use either `TalkBackViewTestRule` or `TalkBackActivityTestRule` - TalkBack will be enabled before each test is run and disabled after each test finishes.
+Use either `TalkBackTestRule` wrapped around a `ViewTestRule`/`ActivityTestRule` to start/stop TalkBack before and after each test.
+
+```java
+private ViewTestRule<MovieItemView> viewTestRule = new ViewTestRule<>(R.layout.test_movie_item_view);
+
+@Rule
+public RuleChain chain = RuleChain.outerRule(new TalkBackTestRule()).around(viewTestRule);
+```
+
+TalkBack will be enabled before each test is run and disabled after each test finishes.
 
 :warning: This rule requires the `extras` module to be included for the app under test, so it can open the `TalkBackStateSettingActivity`.
 
 :warning: Toggling TalkBack state requires the `WRITE_SECURE_SETTINGS` permission being set for the app under test.
-
-```bash
-adb shell pm grant com.novoda.movies android.permission.WRITE_SECURE_SETTINGS
-```
-
-If the app is installed and the permission granted, you can enable/disable TalkBack via adb with the following actions:
-
-```bash
-$ adb shell am start -a "com.novoda.espresso.ENABLE_TALKBACK"
-$ adb shell am start -a "com.novoda.espresso.DISABLE_TALKBACK"
-```
-
-You can also do the same with an Intent:
-
-```java
-Intent intent = new Intent("com.novoda.espresso.ENABLE_TALKBACK")
-context.startActivity(intent);
-```
 
 ## Demo
 
@@ -90,11 +81,13 @@ You can run the demo tests with the following command:
 ./gradlew demo:installDebug;\
 adb shell pm grant com.novoda.movies android.permission.WRITE_SECURE_SETTINGS;\
 adb shell am start -a "com.novoda.espresso.DISABLE_TALKBACK";\
-./gradlew demo:cAT;\
-adb shell am start -a "com.novoda.espresso.DISABLE_TALKBACK";
+./gradlew demo:cAT;
 ```
 
-You have to install the app first to set the permission. We also disable TalkBack before and after the tests so we don't mess up non-TalkBack tests.
+1. First the app is installed
+2. The `WRITE_SECURE_SETTINGS` permission is set for the app (`com.novoda.movies`)
+3. Disable TalkBack (does nothing if it wasn't running)
+4. Run all the connected Android tests
 
 ## Links
 
