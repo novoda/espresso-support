@@ -9,8 +9,6 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-import java.util.List;
-
 import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_SPOKEN;
 
 public class TalkBackTestRule implements TestRule {
@@ -59,7 +57,7 @@ public class TalkBackTestRule implements TestRule {
             return new Condition() {
                 @Override
                 public boolean holds() {
-                    return !talkBackIsDisabled().holds();
+                    return spokenFeedbackServiceRunning();
                 }
             };
         }
@@ -68,9 +66,13 @@ public class TalkBackTestRule implements TestRule {
             return new Condition() {
                 @Override
                 public boolean holds() {
-                    return a11yManager.getEnabledAccessibilityServiceList(FEEDBACK_SPOKEN).isEmpty();
+                    return !spokenFeedbackServiceRunning();
                 }
             };
+        }
+
+        private boolean spokenFeedbackServiceRunning() {
+            return !a11yManager.getEnabledAccessibilityServiceList(FEEDBACK_SPOKEN).isEmpty();
         }
 
         private AssertionError talkBackToggleTimeOutError() {
@@ -78,6 +80,7 @@ public class TalkBackTestRule implements TestRule {
         }
 
         private interface Condition {
+
             boolean holds();
         }
     }
