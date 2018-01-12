@@ -9,6 +9,8 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
+import java.util.List;
+
 import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_SPOKEN;
 
 public class TalkBackTestRule implements TestRule {
@@ -20,7 +22,8 @@ public class TalkBackTestRule implements TestRule {
 
     private static class TalkBackStatement extends Statement {
 
-        private static final int SLEEP_DELAY_MILLIS = 10;
+        private static final int SLEEP_TO_WAIT_FOR_TALK_BACK_MILLIS = 100;
+        private static final int MAX_RETRIES_TO_WAIT_FOR_TALK_BACK = 15;
 
         private final Statement baseStatement;
         private final TalkBackStateSettingRequester talkBackStateSettingRequester = new TalkBackStateSettingRequester(0);
@@ -33,32 +36,49 @@ public class TalkBackTestRule implements TestRule {
         @Override
         public void evaluate() throws Throwable {
             talkBackStateSettingRequester.requestEnableTalkBack();
-            sleepUntilTalkBackIsEnabled();
+            sleepUntil(talkBackIsEnabled());
 
             baseStatement.evaluate();
 
             talkBackStateSettingRequester.requestDisableTalkBack();
-            sleepUntilTalkBackIsDisabled();
+            sleepUntil(talkBackIsDisabled());
         }
 
-        private void sleepUntilTalkBackIsEnabled() {
-            while (talkBackDisabled()) {
-                SystemClock.sleep(SLEEP_DELAY_MILLIS);
+        private void sleepUntil(Condition condition) {
+            int retries = 0;
+            while (!condition.holds()) {
+                SystemClock.sleep(SLEEP_TO_WAIT_FOR_TALK_BACK_MILLIS);
+                if (retries == MAX_RETRIES_TO_WAIT_FOR_TALK_BACK) {
+                    throw talkBackToggleTimeOutError();
+                }
+                retries++;
             }
         }
 
-        private void sleepUntilTalkBackIsDisabled() {
-            while (talkBackEnabled()) {
-                SystemClock.sleep(SLEEP_DELAY_MILLIS);
-            }
+        private Condition talkBackIsEnabled() {
+            return new Condition() {
+                @Override
+                public boolean holds() {
+                    return !talkBackIsDisabled().holds();
+                }
+            };
         }
 
-        private boolean talkBackEnabled() {
-            return !talkBackDisabled();
+        private Condition talkBackIsDisabled() {
+            return new Condition() {
+                @Override
+                public boolean holds() {
+                    return a11yManager.getEnabledAccessibilityServiceList(FEEDBACK_SPOKEN).isEmpty();
+                }
+            };
         }
 
-        private boolean talkBackDisabled() {
-            return a11yManager.getEnabledAccessibilityServiceList(FEEDBACK_SPOKEN).isEmpty();
+        private AssertionError talkBackToggleTimeOutError() {
+            return new AssertionError("Spent too long waiting for TalkBack to toggle.");
+        }
+
+        private interface Condition {
+            boolean holds();
         }
     }
 }
