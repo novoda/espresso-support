@@ -1,24 +1,23 @@
 # espresso-support [![Download](https://api.bintray.com/packages/novoda/maven/espresso-support/images/download.svg)](https://bintray.com/novoda/maven/espresso-support/_latestVersion) [![License](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)](LICENSE)
 
-Includes custom rules for [testing Views in isolation](https://www.novoda.com/blog/testing-views-in-isolation-with-espresso/) and [running Espresso tests with Google TalkBack enabled](https://www.novoda.com/blog/testing-talkback-in-isolation-with-espresso/).
+This library includes components which facilitate [testing Views in isolation](https://www.novoda.com/blog/testing-views-in-isolation-with-espresso/) and [running Espresso tests with Google TalkBack enabled](https://www.novoda.com/blog/testing-talkback-in-isolation-with-espresso/).
 
-The library is split into two components:
-
-- core - main espresso dependency (`androidTestCompile`)
-- extras - optional, depending on which classes you use (`debugCompile`/`espressoCompile`)
-
-The `extras` dependency adds some components to your app (hence it's not `androidTestCompile`), e.g. the `ViewActivity`.
+- it allows you to inflate layouts/instantiate Views in their own Activity
+- adds automatic toggling of TalkBack before/after each test to assert custom behavior
 
 ## Usage
 
-The artifacts are available on JCenter:
+The library is split into two artifacts, available on JCenter.
+
+- `core` includes most of this library's classes and functions. It should be included as an `androidTestCompile` dependency, since you'll only use it for instrumentation tests.
+- `extras` include two Activity components that are used by `core`. It's not enough to use `androidTestCompile` for this because that will include it as part of the test APK that _instruments_ your app; they must be part of the app _under test_. Use `debugCompile` or `<yourEspressoFlavor>Compile` to include this dependency.
 
 ```
-debugCompile 'com.novoda:espresso-support-extras:<latest-version>'
 androidTestCompile 'com.novoda:espresso-support:<latest-version>'
+debugCompile 'com.novoda:espresso-support-extras:<latest-version>'
 ```
 
-See `demo/androidTest` for examples.
+See `demo/build.gradle` for examples.
 
 ## Testing views in isolation
 
@@ -52,8 +51,6 @@ private void givenMovieItemViewIsBoundTo(final Movie movie) {
 }
 ```
 
-:warning: This rule requires the `extras` module to be included for the app under test, so it can open the `ViewActivity`.
-
 ## Testing behavior with TalkBack enabled
 
 Often, our apps will behave differently when TalkBack is enabled to offer a more streamlined experience for users of screen readers.
@@ -69,8 +66,6 @@ public RuleChain chain = RuleChain.outerRule(new TalkBackTestRule()).around(view
 
 TalkBack will be enabled before each test is run and disabled after each test finishes.
 
-:warning: This rule requires the `extras` module to be included for the app under test, so it can open the `TalkBackStateSettingActivity`.
-
 :warning: Toggling TalkBack state requires the `WRITE_SECURE_SETTINGS` permission being set for the app under test.
 
 ## Demo
@@ -85,7 +80,7 @@ adb shell am start -a "com.novoda.espresso.DISABLE_TALKBACK";\
 ```
 
 1. First the app is installed
-2. The `WRITE_SECURE_SETTINGS` permission is set for the app (`com.novoda.movies`)
+2. The `WRITE_SECURE_SETTINGS` permission is set for the app (`com.novoda.movies` - replace this with your app's package name)
 3. Disable TalkBack (does nothing if it wasn't running)
 4. Run all the connected Android tests
 
