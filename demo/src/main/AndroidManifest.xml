@@ -10,6 +10,7 @@
     tools:ignore="GoogleAppIndexingWarning">
 
     <activity android:name=".DemoMainActivity" />
+    <activity android:name=".ThreeButtonsActivity" />
 
   </application>
 
