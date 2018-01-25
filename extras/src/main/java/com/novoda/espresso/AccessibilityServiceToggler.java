@@ -20,23 +20,23 @@ class AccessibilityServiceToggler {
 
     void enable(Service service) {
         String enabledServices = secureSettings.enabledAccessibilityServices();
-        if (enabledServices.contains(service.serviceName)) {
+        if (enabledServices.contains(service.qualifiedName)) {
             return;
         }
-        secureSettings.enabledAccessibilityServices(enabledServices + SERVICES_SEPARATOR + service.serviceName);
+        secureSettings.enabledAccessibilityServices(enabledServices + SERVICES_SEPARATOR + service.qualifiedName);
     }
 
     void disable(Service service) {
         String enabledServices = secureSettings.enabledAccessibilityServices();
-        if (!enabledServices.contains(service.serviceName)) {
+        if (!enabledServices.contains(service.qualifiedName)) {
             return;
         }
 
         // TODO: regex this up
         String remainingServices = enabledServices
-                .replace(SERVICES_SEPARATOR + service.serviceName, EMPTY_STRING)
-                .replace(service.serviceName + SERVICES_SEPARATOR, EMPTY_STRING)
-                .replace(service.serviceName, EMPTY_STRING);
+                .replace(SERVICES_SEPARATOR + service.qualifiedName, EMPTY_STRING)
+                .replace(service.qualifiedName + SERVICES_SEPARATOR, EMPTY_STRING)
+                .replace(service.qualifiedName, EMPTY_STRING);
         secureSettings.enabledAccessibilityServices(remainingServices);
     }
 
@@ -71,10 +71,10 @@ class AccessibilityServiceToggler {
         SWITCH_ACCESS("com.google.android.marvin.talkback/com.android.switchaccess.SwitchAccessService"),
         SELECT_TO_SPEAK("com.google.android.marvin.talkback/com.google.android.accessibility.selecttospeak.SelectToSpeakService");
 
-        private final String serviceName;
+        private final String qualifiedName;
 
-        Service(String serviceName) {
-            this.serviceName = serviceName;
+        Service(String qualifiedName) {
+            this.qualifiedName = qualifiedName;
         }
     }
 }
