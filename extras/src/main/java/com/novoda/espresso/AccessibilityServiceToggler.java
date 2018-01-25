@@ -40,14 +40,18 @@ class AccessibilityServiceToggler {
         secureSettings.enabledAccessibilityServices(remainingServices);
     }
 
+    void disableAll() {
+        secureSettings.enabledAccessibilityServices(EMPTY_STRING);
+    }
+
     private static class SecureSettings {
 
         private static final String VALUE_DISABLED = "0";
-        private static final String VALUE_ENABLED = "1";
 
+        private static final String VALUE_ENABLED = "1";
         private final ContentResolver contentResolver;
 
-        private SecureSettings(ContentResolver contentResolver) {
+        SecureSettings(ContentResolver contentResolver) {
             this.contentResolver = contentResolver;
         }
 
@@ -75,6 +79,10 @@ class AccessibilityServiceToggler {
 
         Service(String qualifiedName) {
             this.qualifiedName = qualifiedName;
+        }
+
+        String qualifiedName() {
+            return qualifiedName;
         }
     }
 }

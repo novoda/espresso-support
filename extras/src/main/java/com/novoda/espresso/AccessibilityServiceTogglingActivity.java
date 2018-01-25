@@ -6,13 +6,12 @@ import android.os.Bundle;
 
 import com.novoda.espresso.AccessibilityServiceToggler.Service;
 
-import java.util.Locale;
-
 public class AccessibilityServiceTogglingActivity extends Activity {
 
-    private static final String ACTION_SET = "com.novoda.espresso.SET_SERVICE";
-    private static final String VALUE_ENABLED = "enabled";
-    private static final String VALUE_DISABLED = "disabled";
+    public static final String ACTION_DISABLE_ALL_SERVICES = "com.novoda.espresso.DISABLE_ALL_SERVICES";
+    public static final String ACTION_SET_SERVICE = "com.novoda.espresso.SET_SERVICE";
+    public static final String ENABLED = "enabled";
+    public static final String DISABLED = "disabled";
 
     private AccessibilityServiceToggler serviceToggler;
 
@@ -23,8 +22,11 @@ public class AccessibilityServiceTogglingActivity extends Activity {
 
         Intent intent = getIntent();
         String action = intent.getAction();
-        if (action != null && action.equalsIgnoreCase(ACTION_SET)) {
+
+        if (ACTION_SET_SERVICE.equalsIgnoreCase(action)) {
             performAction(intent);
+        } else if (ACTION_DISABLE_ALL_SERVICES.equalsIgnoreCase(action)) {
+            serviceToggler.disableAll();
         }
 
         finish();
@@ -32,10 +34,10 @@ public class AccessibilityServiceTogglingActivity extends Activity {
 
     private void performAction(Intent intent) {
         for (Service service : Service.values()) {
-            String value = intent.getStringExtra(service.name().toLowerCase(Locale.US));
-            if (VALUE_ENABLED.equalsIgnoreCase(value)) {
+            String value = intent.getStringExtra(service.name());
+            if (ENABLED.equalsIgnoreCase(value)) {
                 serviceToggler.enable(service);
-            } else if (VALUE_DISABLED.equalsIgnoreCase(value)) {
+            } else if (DISABLED.equalsIgnoreCase(value)) {
                 serviceToggler.disable(service);
             }
         }
