@@ -18,25 +18,25 @@ class AccessibilityServiceToggler {
         this.secureSettings = secureSettings;
     }
 
-    void enable(Services services) {
+    void enable(Service service) {
         String enabledServices = secureSettings.enabledAccessibilityServices();
         if (enabledServices.contains(TALKBACK_SERVICE_NAME)) {
             return;
         }
-        secureSettings.enabledAccessibilityServices(enabledServices + (":" + services.serviceName));
+        secureSettings.enabledAccessibilityServices(enabledServices + (":" + service.serviceName));
     }
 
-    void disable(Services services) {
+    void disable(Service service) {
         String enabledServices = secureSettings.enabledAccessibilityServices();
-        if (!enabledServices.contains(services.serviceName)) {
+        if (!enabledServices.contains(service.serviceName)) {
             return;
         }
 
         // TODO: regex this up
         String remainingServices = enabledServices
-                .replace(":" + services.serviceName, EMPTY_STRING)
-                .replace(services.serviceName + ":", EMPTY_STRING)
-                .replace(services.serviceName, EMPTY_STRING);
+                .replace(":" + service.serviceName, EMPTY_STRING)
+                .replace(service.serviceName + ":", EMPTY_STRING)
+                .replace(service.serviceName, EMPTY_STRING);
         secureSettings.enabledAccessibilityServices(remainingServices);
     }
 
@@ -65,13 +65,13 @@ class AccessibilityServiceToggler {
         }
     }
 
-    enum Services {
+    enum Service {
 
         TALKBACK("com.google.android.marvin.talkback/.TalkBackService");
 
         private final String serviceName;
 
-        Services(String serviceName) {
+        Service(String serviceName) {
             this.serviceName = serviceName;
         }
     }
