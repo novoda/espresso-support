@@ -10,7 +10,7 @@
 
     <activity android:name=".EmptyActivity" />
 
-    <activity android:name=".TalkBackStateSettingActivity">
+    <activity android:name=".AccessibilityServiceTogglingActivity">
 
       <intent-filter>
         <action android:name="com.novoda.espresso.ENABLE_TALKBACK" />
@@ -19,6 +19,16 @@
 
       <intent-filter>
         <action android:name="com.novoda.espresso.DISABLE_TALKBACK" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="com.novoda.espresso.ENABLE_SWITCH_ACCESS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="com.novoda.espresso.DISABLE_SWITCH_ACCESS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
 

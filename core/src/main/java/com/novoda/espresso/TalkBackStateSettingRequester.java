@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.support.test.InstrumentationRegistry;
 
-import static com.novoda.espresso.TalkBackStateSettingActivity.ACTION_DISABLE_TALKBACK;
-import static com.novoda.espresso.TalkBackStateSettingActivity.ACTION_ENABLE_TALKBACK;
+import static com.novoda.espresso.AccessibilityServiceTogglingActivity.ACTION_DISABLE_TALKBACK;
+import static com.novoda.espresso.AccessibilityServiceTogglingActivity.ACTION_ENABLE_TALKBACK;
 
 /**
- * Send intents to TalkBackStateSettingActivity to start and stop TalkBack.
+ * Send intents to AccessibilityServiceTogglingActivity to start and stop TalkBack.
  * <p>
  * By default, includes a delay after sending the intent to allow the state to change. This is customizable
  * via the constructor {@link TalkBackStateSettingRequester#TalkBackStateSettingRequester(long, Context)}.

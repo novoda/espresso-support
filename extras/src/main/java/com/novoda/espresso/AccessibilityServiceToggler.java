@@ -67,7 +67,8 @@ class AccessibilityServiceToggler {
 
     enum Service {
 
-        TALKBACK("com.google.android.marvin.talkback/.TalkBackService");
+        TALKBACK("com.google.android.marvin.talkback/.TalkBackService"),
+        SWITCH_ACCESS("com.google.android.marvin.talkback/com.android.switchaccess.SwitchAccessService");
 
         private final String serviceName;
 
