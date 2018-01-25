@@ -5,6 +5,8 @@ import android.os.SystemClock;
 import android.support.test.InstrumentationRegistry;
 import android.view.accessibility.AccessibilityManager;
 
+import com.novoda.espresso.AccessibilityServiceToggler.Service;
+
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
@@ -24,7 +26,7 @@ public class TalkBackTestRule implements TestRule {
         private static final int MAX_RETRIES_TO_WAIT_FOR_TALK_BACK = 15;
 
         private final Statement baseStatement;
-        private final TalkBackStateSettingRequester talkBackStateSettingRequester = new TalkBackStateSettingRequester(0);
+        private final AccessibilityServiceToggler serviceToggler = AccessibilityServiceToggler.create(InstrumentationRegistry.getTargetContext().getContentResolver());
         private final AccessibilityManager a11yManager = (AccessibilityManager) InstrumentationRegistry.getInstrumentation().getContext().getSystemService(Context.ACCESSIBILITY_SERVICE);
 
         TalkBackStatement(Statement baseStatement) {
@@ -33,12 +35,12 @@ public class TalkBackTestRule implements TestRule {
 
         @Override
         public void evaluate() throws Throwable {
-            talkBackStateSettingRequester.requestEnableTalkBack();
+            serviceToggler.enable(Service.TALKBACK);
             sleepUntil(talkBackIsEnabled());
 
             baseStatement.evaluate();
 
-            talkBackStateSettingRequester.requestDisableTalkBack();
+            serviceToggler.disable(Service.TALKBACK);
             sleepUntil(talkBackIsDisabled());
         }
 

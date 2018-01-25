@@ -23,6 +23,10 @@ android {
     }
 }
 
+dependencies {
+    compile libraries.supportAnnotations
+}
+
 publish {
     userOrg = artifactsPublish.userOrg
     groupId = artifactsPublish.groupId

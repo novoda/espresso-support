@@ -13,32 +13,7 @@
     <activity android:name=".AccessibilityServiceTogglingActivity">
 
       <intent-filter>
-        <action android:name="com.novoda.espresso.ENABLE_TALKBACK" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-
-      <intent-filter>
-        <action android:name="com.novoda.espresso.DISABLE_TALKBACK" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-
-      <intent-filter>
-        <action android:name="com.novoda.espresso.ENABLE_SWITCH_ACCESS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-
-      <intent-filter>
-        <action android:name="com.novoda.espresso.DISABLE_SWITCH_ACCESS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-
-      <intent-filter>
-        <action android:name="com.novoda.espresso.ENABLE_SELECT_TO_SPEAK" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-
-      <intent-filter>
-        <action android:name="com.novoda.espresso.DISABLE_SELECT_TO_SPEAK" />
+        <action android:name="com.novoda.espresso.SET_SERVICE" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
 

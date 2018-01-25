@@ -6,45 +6,38 @@ import android.os.Bundle;
 
 import com.novoda.espresso.AccessibilityServiceToggler.Service;
 
+import java.util.Locale;
+
 public class AccessibilityServiceTogglingActivity extends Activity {
 
-    public static final String ACTION_ENABLE_TALKBACK = "com.novoda.espresso.ENABLE_TALKBACK";
-    public static final String ACTION_DISABLE_TALKBACK = "com.novoda.espresso.DISABLE_TALKBACK";
-    public static final String ACTION_ENABLE_SWITCH_ACCESS= "com.novoda.espresso.ENABLE_SWITCH_ACCESS";
-    public static final String ACTION_DISABLE_SWITCH_ACCESS = "com.novoda.espresso.DISABLE_SWITCH_ACCESS";
-    public static final String ACTION_ENABLE_SELECT_TO_SPEAK= "com.novoda.espresso.ENABLE_SELECT_TO_SPEAK";
-    public static final String ACTION_DISABLE_SELECT_TO_SPEAK = "com.novoda.espresso.DISABLE_SELECT_TO_SPEAK";
+    private static final String ACTION_SET = "com.novoda.espresso.SET_SERVICE";
+    private static final String VALUE_ENABLED = "enabled";
+    private static final String VALUE_DISABLED = "disabled";
+
+    private AccessibilityServiceToggler serviceToggler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        serviceToggler = AccessibilityServiceToggler.create(getContentResolver());
+
         Intent intent = getIntent();
-        if (intent == null || intent.getAction() == null) {
-            finish();
-            return;
+        String action = intent.getAction();
+        if (action != null && action.equalsIgnoreCase(ACTION_SET)) {
+            performAction(intent);
         }
 
-        AccessibilityServiceToggler serviceToggler = AccessibilityServiceToggler.create(getContentResolver());
-        switch (intent.getAction()) {
-            case ACTION_ENABLE_TALKBACK:
-                serviceToggler.enable(Service.TALKBACK);
-                break;
-            case ACTION_DISABLE_TALKBACK:
-                serviceToggler.disable(Service.TALKBACK);
-                break;
-            case ACTION_ENABLE_SWITCH_ACCESS:
-                serviceToggler.enable(Service.SWITCH_ACCESS);
-                break;
-            case ACTION_DISABLE_SWITCH_ACCESS:
-                serviceToggler.disable(Service.SWITCH_ACCESS);
-                break;
-            case ACTION_ENABLE_SELECT_TO_SPEAK:
-                serviceToggler.enable(Service.SELECT_TO_SPEAK);
-                break;
-            case ACTION_DISABLE_SELECT_TO_SPEAK:
-                serviceToggler.disable(Service.SELECT_TO_SPEAK);
-                break;
-        }
         finish();
+    }
+
+    private void performAction(Intent intent) {
+        for (Service service : Service.values()) {
+            String value = intent.getStringExtra(service.name().toLowerCase(Locale.US));
+            if (VALUE_ENABLED.equalsIgnoreCase(value)) {
+                serviceToggler.enable(service);
+            } else if (VALUE_DISABLED.equalsIgnoreCase(value)) {
+                serviceToggler.disable(service);
+            }
+        }
     }
 }

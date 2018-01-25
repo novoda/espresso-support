@@ -75,13 +75,13 @@ You can run the demo tests with the following command:
 ```bash
 ./gradlew demo:installDebug;\
 adb shell pm grant com.novoda.movies android.permission.WRITE_SECURE_SETTINGS;\
-adb shell am start -a "com.novoda.espresso.DISABLE_TALKBACK";\
+adb shell am start -a com.novoda.espresso.SET_SERVICE -e talkback disabled -e select_to_speak disabled -e switch_access disabled;\
 ./gradlew demo:cAT;
 ```
 
 1. First the app is installed
 2. The `WRITE_SECURE_SETTINGS` permission is set for the app (`com.novoda.movies` - replace this with your app's package name)
-3. Disable TalkBack (does nothing if it wasn't running)
+3. Disable all the services initially
 4. Run all the connected Android tests
 
 ## Links
