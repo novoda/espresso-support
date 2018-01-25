@@ -5,7 +5,6 @@ import android.provider.Settings;
 
 class AccessibilityServiceToggler {
 
-    private static final String TALKBACK_SERVICE_NAME = "com.google.android.marvin.talkback/.TalkBackService";
     private static final String EMPTY_STRING = "";
 
     private final SecureSettings secureSettings;
@@ -20,7 +19,7 @@ class AccessibilityServiceToggler {
 
     void enable(Service service) {
         String enabledServices = secureSettings.enabledAccessibilityServices();
-        if (enabledServices.contains(TALKBACK_SERVICE_NAME)) {
+        if (enabledServices.contains(service.serviceName)) {
             return;
         }
         secureSettings.enabledAccessibilityServices(enabledServices + (":" + service.serviceName));
