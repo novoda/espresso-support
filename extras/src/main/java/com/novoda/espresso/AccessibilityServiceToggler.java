@@ -6,6 +6,7 @@ import android.provider.Settings;
 class AccessibilityServiceToggler {
 
     private static final String EMPTY_STRING = "";
+    private static final String SERVICES_SEPARATOR = ":";
 
     private final SecureSettings secureSettings;
 
@@ -22,7 +23,7 @@ class AccessibilityServiceToggler {
         if (enabledServices.contains(service.serviceName)) {
             return;
         }
-        secureSettings.enabledAccessibilityServices(enabledServices + (":" + service.serviceName));
+        secureSettings.enabledAccessibilityServices(enabledServices + SERVICES_SEPARATOR + service.serviceName);
     }
 
     void disable(Service service) {
@@ -33,8 +34,8 @@ class AccessibilityServiceToggler {
 
         // TODO: regex this up
         String remainingServices = enabledServices
-                .replace(":" + service.serviceName, EMPTY_STRING)
-                .replace(service.serviceName + ":", EMPTY_STRING)
+                .replace(SERVICES_SEPARATOR + service.serviceName, EMPTY_STRING)
+                .replace(service.serviceName + SERVICES_SEPARATOR, EMPTY_STRING)
                 .replace(service.serviceName, EMPTY_STRING);
         secureSettings.enabledAccessibilityServices(remainingServices);
     }
