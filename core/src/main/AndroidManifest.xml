@@ -1,5 +1,1 @@
-<manifest package="com.novoda.espresso.core"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <uses-sdk tools:overrideLibrary="android.support.test.uiautomator.v18" />
-</manifest>
+<manifest package="com.novoda.espresso.core" />
