@@ -19,10 +19,10 @@ public class TalkBackStateSettingActivity extends Activity {
         }
         switch (intent.getAction()) {
             case ACTION_ENABLE_TALKBACK:
-                AccessibilityServiceToggler.create(getContentResolver()).enableTalkBack();
+                AccessibilityServiceToggler.create(getContentResolver()).enable(AccessibilityServiceToggler.Services.TALKBACK);
                 break;
             case ACTION_DISABLE_TALKBACK:
-                AccessibilityServiceToggler.create(getContentResolver()).disableTalkBack();
+                AccessibilityServiceToggler.create(getContentResolver()).disable(AccessibilityServiceToggler.Services.TALKBACK);
                 break;
         }
         finish();

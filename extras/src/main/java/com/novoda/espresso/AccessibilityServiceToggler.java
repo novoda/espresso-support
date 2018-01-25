@@ -18,33 +18,25 @@ class AccessibilityServiceToggler {
         this.secureSettings = secureSettings;
     }
 
-    void enableTalkBack() {
-        enableService(TALKBACK_SERVICE_NAME);
-    }
-
-    private void enableService(String serviceName) {
+    void enable(Services services) {
         String enabledServices = secureSettings.enabledAccessibilityServices();
         if (enabledServices.contains(TALKBACK_SERVICE_NAME)) {
             return;
         }
-        secureSettings.enabledAccessibilityServices(enabledServices + (":" + serviceName));
+        secureSettings.enabledAccessibilityServices(enabledServices + (":" + services.serviceName));
     }
 
-    void disableTalkBack() {
-        disableService(TALKBACK_SERVICE_NAME);
-    }
-
-    private void disableService(String serviceName) {
+    void disable(Services services) {
         String enabledServices = secureSettings.enabledAccessibilityServices();
-        if (!enabledServices.contains(serviceName)) {
+        if (!enabledServices.contains(services.serviceName)) {
             return;
         }
 
         // TODO: regex this up
         String remainingServices = enabledServices
-                .replace(":" + serviceName, EMPTY_STRING)
-                .replace(serviceName + ":", EMPTY_STRING)
-                .replace(serviceName, EMPTY_STRING);
+                .replace(":" + services.serviceName, EMPTY_STRING)
+                .replace(services.serviceName + ":", EMPTY_STRING)
+                .replace(services.serviceName, EMPTY_STRING);
         secureSettings.enabledAccessibilityServices(remainingServices);
     }
 
@@ -70,6 +62,17 @@ class AccessibilityServiceToggler {
 
         private void accessibilityEnabled(String enabled) {
             Settings.Secure.putString(contentResolver, Settings.Secure.ACCESSIBILITY_ENABLED, enabled);
+        }
+    }
+
+    enum Services {
+
+        TALKBACK("com.google.android.marvin.talkback/.TalkBackService");
+
+        private final String serviceName;
+
+        Services(String serviceName) {
+            this.serviceName = serviceName;
         }
     }
 }
