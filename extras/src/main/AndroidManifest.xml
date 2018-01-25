@@ -32,6 +32,16 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
 
+      <intent-filter>
+        <action android:name="com.novoda.espresso.ENABLE_SELECT_TO_SPEAK" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="com.novoda.espresso.DISABLE_SELECT_TO_SPEAK" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+
     </activity>
 
   </application>

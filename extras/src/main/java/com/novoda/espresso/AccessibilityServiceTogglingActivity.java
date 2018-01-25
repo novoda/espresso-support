@@ -12,6 +12,8 @@ public class AccessibilityServiceTogglingActivity extends Activity {
     public static final String ACTION_DISABLE_TALKBACK = "com.novoda.espresso.DISABLE_TALKBACK";
     public static final String ACTION_ENABLE_SWITCH_ACCESS= "com.novoda.espresso.ENABLE_SWITCH_ACCESS";
     public static final String ACTION_DISABLE_SWITCH_ACCESS = "com.novoda.espresso.DISABLE_SWITCH_ACCESS";
+    public static final String ACTION_ENABLE_SELECT_TO_SPEAK= "com.novoda.espresso.ENABLE_SELECT_TO_SPEAK";
+    public static final String ACTION_DISABLE_SELECT_TO_SPEAK = "com.novoda.espresso.DISABLE_SELECT_TO_SPEAK";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,12 @@ public class AccessibilityServiceTogglingActivity extends Activity {
                 break;
             case ACTION_DISABLE_SWITCH_ACCESS:
                 serviceToggler.disable(Service.SWITCH_ACCESS);
+                break;
+            case ACTION_ENABLE_SELECT_TO_SPEAK:
+                serviceToggler.enable(Service.SELECT_TO_SPEAK);
+                break;
+            case ACTION_DISABLE_SELECT_TO_SPEAK:
+                serviceToggler.disable(Service.SELECT_TO_SPEAK);
                 break;
         }
         finish();
