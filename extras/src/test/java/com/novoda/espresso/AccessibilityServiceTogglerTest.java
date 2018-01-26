@@ -43,7 +43,6 @@ public class AccessibilityServiceTogglerTest {
 
         private final Service service;
 
-
         public ForEachService(Service service) {
             this.service = service;
         }
