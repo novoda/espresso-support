@@ -18,6 +18,14 @@ public class AccessibilityRules {
         return new AccessibilityServiceTestRule(createHelper(Service.TALKBACK));
     }
 
+    public static TestRule createSwitchAccessTestRule() {
+        return new AccessibilityServiceTestRule(createHelper(Service.SWITCH_ACCESS));
+    }
+
+    public static TestRule createSelectToSpeakTestRule() {
+        return new AccessibilityServiceTestRule(createHelper(Service.SELECT_TO_SPEAK));
+    }
+
     private static AccessibilityServiceTestRule.Helper createHelper(final Service service) {
         final Context context = InstrumentationRegistry.getTargetContext();
         final AccessibilityManager a11yManager = (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
