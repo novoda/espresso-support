@@ -23,6 +23,12 @@ android {
     }
 }
 
+dependencies {
+    compile libraries.supportAnnotations
+    testImplementation libraries.mockitoCore
+    testImplementation libraries.jUnit
+}
+
 publish {
     userOrg = artifactsPublish.userOrg
     groupId = artifactsPublish.groupId

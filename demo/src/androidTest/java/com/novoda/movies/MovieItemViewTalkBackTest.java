@@ -3,7 +3,7 @@ package com.novoda.movies;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.novoda.espresso.TalkBackTestRule;
+import com.novoda.espresso.AccessibilityRules;
 import com.novoda.espresso.ViewTestRule;
 
 import org.junit.After;
@@ -36,7 +36,7 @@ public class MovieItemViewTalkBackTest {
     private ViewTestRule<MovieItemView> viewTestRule = new ViewTestRule<>(R.layout.test_movie_item_view);
 
     @Rule
-    public RuleChain chain = RuleChain.outerRule(new TalkBackTestRule()).around(viewTestRule);
+    public RuleChain chain = RuleChain.outerRule(AccessibilityRules.createTalkBackTestRule()).around(viewTestRule);
 
     @Mock
     MovieItemView.Listener movieItemListener;

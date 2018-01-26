@@ -10,15 +10,15 @@
 
     <activity android:name=".EmptyActivity" />
 
-    <activity android:name=".TalkBackStateSettingActivity">
+    <activity android:name=".AccessibilityServiceTogglingActivity">
 
       <intent-filter>
-        <action android:name="com.novoda.espresso.ENABLE_TALKBACK" />
+        <action android:name="com.novoda.espresso.SET_SERVICE" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
 
       <intent-filter>
-        <action android:name="com.novoda.espresso.DISABLE_TALKBACK" />
+        <action android:name="com.novoda.espresso.DISABLE_ALL_SERVICES" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
 

@@ -31,9 +31,7 @@ dependencies {
     }
 
     androidTestCompile libraries.mockitoCore
-    androidTestCompile libraries.dexmaker
-    androidTestCompile libraries.dexmakerMockito
-
+    androidTestCompile libraries.mockitoAndroid
     androidTestCompile(libraries.androidTestRunner) {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
