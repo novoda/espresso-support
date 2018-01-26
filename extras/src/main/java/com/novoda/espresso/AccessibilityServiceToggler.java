@@ -14,7 +14,7 @@ class AccessibilityServiceToggler {
         return new AccessibilityServiceToggler(new SecureSettings(contentResolver));
     }
 
-    private AccessibilityServiceToggler(SecureSettings secureSettings) {
+    AccessibilityServiceToggler(SecureSettings secureSettings) {
         this.secureSettings = secureSettings;
     }
 
@@ -32,7 +32,6 @@ class AccessibilityServiceToggler {
             return;
         }
 
-        // TODO: regex this up
         String remainingServices = enabledServices
                 .replace(SERVICES_SEPARATOR + service.qualifiedName, EMPTY_STRING)
                 .replace(service.qualifiedName + SERVICES_SEPARATOR, EMPTY_STRING)
@@ -44,11 +43,11 @@ class AccessibilityServiceToggler {
         secureSettings.enabledAccessibilityServices(EMPTY_STRING);
     }
 
-    private static class SecureSettings {
+    static class SecureSettings {
 
         private static final String VALUE_DISABLED = "0";
-
         private static final String VALUE_ENABLED = "1";
+
         private final ContentResolver contentResolver;
 
         SecureSettings(ContentResolver contentResolver) {
