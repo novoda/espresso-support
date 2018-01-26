@@ -17,7 +17,7 @@ import static org.mockito.Mockito.verify;
 @RunWith(Enclosed.class)
 public class AccessibilityServiceTogglerTest {
 
-    public static abstract class Base {
+    private static abstract class Base {
 
         final AccessibilityServiceToggler.SecureSettings secureSettings = mock(AccessibilityServiceToggler.SecureSettings.class);
         final AccessibilityServiceToggler serviceToggler = new AccessibilityServiceToggler(secureSettings);
