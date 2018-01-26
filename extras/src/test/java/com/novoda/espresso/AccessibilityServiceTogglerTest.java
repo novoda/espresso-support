@@ -3,6 +3,7 @@ package com.novoda.espresso;
 import com.novoda.espresso.AccessibilityServiceToggler.Service;
 
 import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
@@ -13,80 +14,92 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-@RunWith(Parameterized.class)
+@RunWith(Enclosed.class)
 public class AccessibilityServiceTogglerTest {
 
-    @Parameterized.Parameters
-    public static Service[] data() {
-        return Service.values();
+    public static abstract class Base {
+
+        final AccessibilityServiceToggler.SecureSettings secureSettings = mock(AccessibilityServiceToggler.SecureSettings.class);
+        final AccessibilityServiceToggler serviceToggler = new AccessibilityServiceToggler(secureSettings);
     }
 
-    private final AccessibilityServiceToggler.SecureSettings secureSettings = mock(AccessibilityServiceToggler.SecureSettings.class);
-    private final AccessibilityServiceToggler serviceToggler = new AccessibilityServiceToggler(secureSettings);
-    private final Service service;
+    public static class NoParameters extends Base {
 
-    public AccessibilityServiceTogglerTest(Service service) {
-        this.service = service;
+        @Test
+        public void disableAll() {
+            serviceToggler.disableAll();
+
+            verify(secureSettings).enabledAccessibilityServices("");
+        }
     }
 
-    @Test
-    public void whenCallingEnable_thenAppendsServiceToList() {
-        given(secureSettings.enabledAccessibilityServices()).willReturn("foo");
+    @RunWith(Parameterized.class)
+    public static class ForEachService extends Base {
 
-        serviceToggler.enable(service);
+        @Parameterized.Parameters
+        public static Service[] data() {
+            return Service.values();
+        }
 
-        verify(secureSettings).enabledAccessibilityServices(endsWith(":" + service.qualifiedName()));
-    }
+        private final Service service;
 
-    @Test
-    public void givenAlreadyEnabled_whenCallingEnable_thenDoesNotModifyState() {
-        given(secureSettings.enabledAccessibilityServices()).willReturn(service.qualifiedName());
 
-        serviceToggler.enable(service);
+        public ForEachService(Service service) {
+            this.service = service;
+        }
 
-        verify(secureSettings, never()).enabledAccessibilityServices(anyString());
-    }
+        @Test
+        public void whenCallingEnable_thenAppendsServiceToList() {
+            given(secureSettings.enabledAccessibilityServices()).willReturn("foo");
 
-    @Test
-    public void givenServiceEnabledLastAmongOthers_whenCallingDisable_thenRemovesServiceFromList() {
-        given(secureSettings.enabledAccessibilityServices()).willReturn("foo:" + service.qualifiedName());
+            serviceToggler.enable(service);
 
-        serviceToggler.disable(service);
+            verify(secureSettings).enabledAccessibilityServices(endsWith(":" + service.qualifiedName()));
+        }
 
-        verify(secureSettings).enabledAccessibilityServices("foo");
-    }
+        @Test
+        public void givenAlreadyEnabled_whenCallingEnable_thenDoesNotModifyState() {
+            given(secureSettings.enabledAccessibilityServices()).willReturn(service.qualifiedName());
 
-    @Test
-    public void givenServiceEnabledFirstAmongOthers_whenCallingDisable_thenRemovesServiceFromList() {
-        given(secureSettings.enabledAccessibilityServices()).willReturn(service.qualifiedName() + ":foo");
+            serviceToggler.enable(service);
 
-        serviceToggler.disable(service);
+            verify(secureSettings, never()).enabledAccessibilityServices(anyString());
+        }
 
-        verify(secureSettings).enabledAccessibilityServices("foo");
-    }
+        @Test
+        public void givenServiceEnabledLastAmongOthers_whenCallingDisable_thenRemovesServiceFromList() {
+            given(secureSettings.enabledAccessibilityServices()).willReturn("foo:" + service.qualifiedName());
 
-    @Test
-    public void givenServiceEnabledAmongOthers_whenCallingDisable_thenRemovesServiceFromList() {
-        given(secureSettings.enabledAccessibilityServices()).willReturn("foo:" + service.qualifiedName() + ":bar");
+            serviceToggler.disable(service);
 
-        serviceToggler.disable(service);
+            verify(secureSettings).enabledAccessibilityServices("foo");
+        }
 
-        verify(secureSettings).enabledAccessibilityServices("foo:bar");
-    }
+        @Test
+        public void givenServiceEnabledFirstAmongOthers_whenCallingDisable_thenRemovesServiceFromList() {
+            given(secureSettings.enabledAccessibilityServices()).willReturn(service.qualifiedName() + ":foo");
 
-    @Test
-    public void givenServiceEnabledIsOnlyOneEnabled_whenCallingDisable_thenSetsEmptyList() {
-        given(secureSettings.enabledAccessibilityServices()).willReturn(service.qualifiedName());
+            serviceToggler.disable(service);
 
-        serviceToggler.disable(service);
+            verify(secureSettings).enabledAccessibilityServices("foo");
+        }
 
-        verify(secureSettings).enabledAccessibilityServices("");
-    }
+        @Test
+        public void givenServiceEnabledAmongOthers_whenCallingDisable_thenRemovesServiceFromList() {
+            given(secureSettings.enabledAccessibilityServices()).willReturn("foo:" + service.qualifiedName() + ":bar");
 
-    @Test
-    public void disableAll() {
-        serviceToggler.disableAll();
+            serviceToggler.disable(service);
 
-        verify(secureSettings).enabledAccessibilityServices("");
+            verify(secureSettings).enabledAccessibilityServices("foo:bar");
+        }
+
+        @Test
+        public void givenServiceEnabledIsOnlyOneEnabled_whenCallingDisable_thenSetsEmptyList() {
+            given(secureSettings.enabledAccessibilityServices()).willReturn(service.qualifiedName());
+
+            serviceToggler.disable(service);
+
+            verify(secureSettings).enabledAccessibilityServices("");
+        }
     }
 }
