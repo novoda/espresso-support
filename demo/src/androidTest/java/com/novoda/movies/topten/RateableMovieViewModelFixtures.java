@@ -13,17 +13,17 @@ class RateableMovieViewModelFixtures {
     private int poster = R.drawable.topten_arrival;
     private RateableMovieViewModel.UserActions userActions = new RateableMovieViewModel.UserActions() {
         @Override
-        public void selectMovie() {
+        public void onSelectMovie() {
 
         }
 
         @Override
-        public void toggleLike() {
+        public void onToggleLike() {
 
         }
 
         @Override
-        public void rate(float rating) {
+        public void onRate(float rating) {
 
         }
     };
@@ -91,7 +91,7 @@ class RateableMovieViewModelFixtures {
             }
 
             @Override
-            public UserActions onUser() {
+            public UserActions actions() {
                 return userActions;
             }
         };

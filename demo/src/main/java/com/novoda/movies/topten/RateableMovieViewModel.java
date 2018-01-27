@@ -15,15 +15,14 @@ interface RateableMovieViewModel {
     @DrawableRes
     int poster();
 
-    UserActions onUser();
+    UserActions actions();
 
     interface UserActions {
 
-        void selectMovie();
+        void onSelectMovie();
 
-        void toggleLike();
+        void onToggleLike();
 
-        void rate(float rating);
+        void onRate(float rating);
     }
 }
-

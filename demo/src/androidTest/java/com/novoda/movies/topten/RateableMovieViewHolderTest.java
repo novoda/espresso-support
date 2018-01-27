@@ -52,6 +52,6 @@ public class RateableMovieViewHolderTest {
 
         onView(underTest()).perform(click());
 
-        verify(userActions).selectMovie();
+        verify(userActions).onSelectMovie();
     }
 }
