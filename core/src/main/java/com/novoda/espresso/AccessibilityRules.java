@@ -54,7 +54,7 @@ public class AccessibilityRules {
 
             @Override
             public boolean reportsEnabled() {
-                List<AccessibilityServiceInfo> enabledAccessibilityServiceList = a11yManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_SPOKEN);
+                List<AccessibilityServiceInfo> enabledAccessibilityServiceList = a11yManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
                 for (AccessibilityServiceInfo accessibilityServiceInfo : enabledAccessibilityServiceList) {
                     if (accessibilityServiceInfo.getId().equals(service.qualifiedName())) {
                         return true;
