@@ -86,7 +86,7 @@ public class ViewTestRule<T extends View> extends ActivityTestRule<EmptyActivity
 
             @Override
             public void describeTo(Description description) {
-
+                description.appendText("is View under test, managed by this " + ViewTestRule.class.getSimpleName());
             }
         };
     }
