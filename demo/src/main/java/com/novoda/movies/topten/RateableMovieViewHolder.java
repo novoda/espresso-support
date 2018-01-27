@@ -34,13 +34,29 @@ class RateableMovieViewHolder extends RecyclerView.ViewHolder {
     void bind(final RateableMovieViewModel viewModel) {
         posterImageView.setImageResource(viewModel.poster());
         titleTextView.setText(viewModel.title());
-        likeImageView.setImageResource(viewModel.liked() ? R.drawable.ic_favorite_24dp : R.drawable.ic_favorite_border_24dp);
-        ratingBar.setRating(viewModel.rating());
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewModel.actions().onSelectMovie();
+            }
+        });
+
+        likeImageView.setImageResource(viewModel.liked() ? R.drawable.ic_favorite_24dp : R.drawable.ic_favorite_border_24dp);
+        likeImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.actions().onToggleLike();
+            }
+        });
+
+        ratingBar.setRating(viewModel.rating());
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                if (fromUser) {
+                    viewModel.actions().onRate(rating);
+                }
             }
         });
     }
