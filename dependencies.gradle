@@ -24,6 +24,7 @@ ext {
             supportConstraintLayout: 'com.android.support.constraint:constraint-layout:1.1.0-beta4',
             supportRecyclerView    : "com.android.support:recyclerview-v7:${versions.androidSupport}",
             mockitoCore            : "org.mockito:mockito-core:${versions.mockito}",
-            mockitoAndroid         : "org.mockito:mockito-android:${versions.mockito}"
+            mockitoAndroid         : "org.mockito:mockito-android:${versions.mockito}",
+            uiAutomatorV18         : 'com.android.support.test.uiautomator:uiautomator-v18:2.0.0'
     ]
 }
