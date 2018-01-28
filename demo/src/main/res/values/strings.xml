@@ -1,8 +1,25 @@
 <resources>
 
-  <string name="app_name">Movies</string>
-  <string name="action_click_movie">Open details</string>
-  <string name="action_click_play_movie">Play</string>
-  <string name="action_click_favorite_movie">Favorite</string>
+    <string name="app_name">Movies</string>
+    <string name="action_click_movie">Open details</string>
+    <string name="action_click_play_movie">Play</string>
+    <string name="action_click_favorite_movie">Favorite</string>
+
+    <string name="action_rateable_movie_usage_hint_click">see options</string>
+    <string name="action_rateable_movie_click_select">Open details</string>
+    <string name="action_rateable_movie_click_remove_like">Undo like movie</string>
+    <string name="action_rateable_movie_click_like">Like movie</string>
+    <string name="action_rateable_movie_click_rate">Rate movie</string>
+    <string name="action_rateable_movie_dialog_title_rate_movie">Rate movie</string>
+    <string name="action_rateable_movie_rate_half_star">0.5 stars</string>
+    <string name="action_rateable_movie_rate_one_star">1 star</string>
+    <string name="action_rateable_movie_rate_one_half_star">1.5 stars</string>
+    <string name="action_rateable_movie_rate_two_star">2 stars</string>
+    <string name="action_rateable_movie_rate_two_half_star">2.5 stars</string>
+    <string name="action_rateable_movie_rate_three_star">3 stars</string>
+    <string name="action_rateable_movie_rate_three_half_star">3.5 stars</string>
+    <string name="action_rateable_movie_rate_four_star">4 stars</string>
+    <string name="action_rateable_movie_rate_four_half_star">4.5 stars</string>
+    <string name="action_rateable_movie_rate_five_star">5 stars</string>
 
 </resources>
