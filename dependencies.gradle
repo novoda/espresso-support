@@ -4,24 +4,26 @@ ext {
                     compile   : 27,
                     min       : 16,
                     target    : 27,
-                    buildTools: '26.0.2'
+                    buildTools: '27.0.3'
             ],
             mockito       : '2.6.3',
-            androidSupport: '27.0.0'
+            androidSupport: '27.0.2'
     ]
 
     libraries = [
-            build              : [
-                    androidGradle : 'com.android.tools.build:gradle:3.0.0',
+            build                  : [
+                    androidGradle : 'com.android.tools.build:gradle:3.0.1',
                     bintrayRelease: 'com.novoda:bintray-release:0.7.0'
             ],
-            accessibilitools   : 'com.novoda:accessibilitools:1.4.0',
-            androidTestRunner  : 'com.android.support.test:runner:1.0.1',
-            androidEspressoCore: 'com.android.support.test.espresso:espresso-core:3.0.1',
-            supportAnnotations : "com.android.support:support-annotations:${versions.androidSupport}",
-            supportAppCompatV7 : "com.android.support:appcompat-v7:${versions.androidSupport}",
-            jUnit              : 'junit:junit:4.12',
-            mockitoCore        : "org.mockito:mockito-core:${versions.mockito}",
-            mockitoAndroid     : "org.mockito:mockito-android:${versions.mockito}"
+            accessibilitools       : 'com.novoda:accessibilitools:1.4.0',
+            androidTestRunner      : 'com.android.support.test:runner:1.0.1',
+            androidEspressoCore    : 'com.android.support.test.espresso:espresso-core:3.0.1',
+            jUnit                  : 'junit:junit:4.12',
+            supportAnnotations     : "com.android.support:support-annotations:${versions.androidSupport}",
+            supportAppCompatV7     : "com.android.support:appcompat-v7:${versions.androidSupport}",
+            supportConstraintLayout: 'com.android.support.constraint:constraint-layout:1.1.0-beta4',
+            supportRecyclerView    : "com.android.support:recyclerview-v7:${versions.androidSupport}",
+            mockitoCore            : "org.mockito:mockito-core:${versions.mockito}",
+            mockitoAndroid         : "org.mockito:mockito-android:${versions.mockito}"
     ]
 }

@@ -8,7 +8,11 @@ import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 import android.view.ViewGroup;
 
-import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import com.novoda.espresso.core.R;
+
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 
 public class ViewTestRule<T extends View> extends ActivityTestRule<EmptyActivity> {
 
@@ -49,6 +53,7 @@ public class ViewTestRule<T extends View> extends ActivityTestRule<EmptyActivity
             @Override
             public void run() {
                 view = viewCreator.createView(activity, (ViewGroup) activity.findViewById(android.R.id.content));
+                view.setTag(R.id.espresso_support__view_test_rule, true);
             }
         });
     }
@@ -69,5 +74,20 @@ public class ViewTestRule<T extends View> extends ActivityTestRule<EmptyActivity
     public interface Runner<T> {
 
         void run(T view);
+    }
+
+    public static Matcher<View> underTest() {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            protected boolean matchesSafely(View item) {
+                Object tag = item.getTag(R.id.espresso_support__view_test_rule);
+                return tag != null && ((Boolean) tag);
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("is View under test, managed by this " + ViewTestRule.class.getSimpleName());
+            }
+        };
     }
 }

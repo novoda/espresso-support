@@ -24,6 +24,9 @@ android {
 
 dependencies {
     compile libraries.accessibilitools
+    compile libraries.supportAppCompatV7
+    compile libraries.supportConstraintLayout
+    compile libraries.supportRecyclerView
 
     debugCompile project(':extras')
     androidTestCompile(project(':core')) {
