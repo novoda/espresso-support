@@ -52,7 +52,7 @@ class RateableMovieViewHolder extends RecyclerView.ViewHolder {
         ViewCompat.setAccessibilityDelegate(itemView, a11yDelegate);
         itemView.setContentDescription(viewModel.title() + ", rating " + viewModel.rating() + ", liked: " + viewModel.liked()); // such a good content description
 
-        if (a11yServices.isSpokenFeedbackEnabled() || !itemView.isInTouchMode()) { // TODO: add check for SwitchAccess - depends on update to https://github.com/novoda/accessibilitools/pull/21/files
+        if (a11yServices.isSpokenFeedbackEnabled() || a11yServices.isSwitchAccessEnabled() || !itemView.isInTouchMode()) {
             bindForIndirectAccess(actions);
             a11yDelegate.setClickLabel(R.string.action_rateable_movie_usage_hint_click);
         } else {
