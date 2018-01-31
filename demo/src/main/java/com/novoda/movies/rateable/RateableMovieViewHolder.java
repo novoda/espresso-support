@@ -42,14 +42,14 @@ class RateableMovieViewHolder extends RecyclerView.ViewHolder {
     }
 
     void bind(RateableMovieViewModel viewModel) {
-        posterImageView.setImageResource(viewModel.poster());
-        titleTextView.setText(viewModel.title());
-        likeImageView.setImageResource(viewModel.liked() ? R.drawable.ic_favorite_24dp : R.drawable.ic_favorite_border_24dp);
-        ratingBar.setRating(viewModel.rating());
+        posterImageView.setImageResource(viewModel.poster);
+        titleTextView.setText(viewModel.title);
+        likeImageView.setImageResource(viewModel.liked ? R.drawable.ic_favorite_24dp : R.drawable.ic_favorite_border_24dp);
+        ratingBar.setRating(viewModel.rating);
         Actions actions = collateActionsFor(viewModel);
         ActionsAccessibilityDelegate a11yDelegate = new ActionsAccessibilityDelegate(itemView.getResources(), actions);
         ViewCompat.setAccessibilityDelegate(itemView, a11yDelegate);
-        itemView.setContentDescription(viewModel.title() + ", rating " + viewModel.rating() + ", liked: " + viewModel.liked());
+        itemView.setContentDescription(viewModel.title + ", rating " + viewModel.rating + ", liked: " + viewModel.liked);
 
         if (a11yServices.isSpokenFeedbackEnabled() || a11yServices.isSwitchAccessEnabled() || !itemView.isInTouchMode()) {
             bindForIndirectAccess(actions);
@@ -76,12 +76,12 @@ class RateableMovieViewHolder extends RecyclerView.ViewHolder {
     }
 
     private Action selectActionFor(RateableMovieViewModel viewModel) {
-        return new Action(R.id.action_rateable_movie_click_select, R.string.action_rateable_movie_click_select, () -> viewModel.actions().onSelectMovie());
+        return new Action(R.id.action_rateable_movie_click_select, R.string.action_rateable_movie_click_select, () -> viewModel.actions.onSelectMovie());
     }
 
     private Action toggleLikeActionFor(RateableMovieViewModel viewModel) {
-        Runnable onToggleLikeRunnable = () -> viewModel.actions().onToggleLike();
-        if (viewModel.liked()) {
+        Runnable onToggleLikeRunnable = () -> viewModel.actions.onToggleLike();
+        if (viewModel.liked) {
             return new Action(R.id.action_rateable_movie_click_toggle_like, R.string.action_rateable_movie_click_remove_like, onToggleLikeRunnable);
         } else {
             return new Action(R.id.action_rateable_movie_click_toggle_like, R.string.action_rateable_movie_click_like, onToggleLikeRunnable);
@@ -95,25 +95,25 @@ class RateableMovieViewHolder extends RecyclerView.ViewHolder {
     private void showRatingDialog(RateableMovieViewModel viewModel) {
         ActionsAlertDialogCreator actionsAlertDialogCreator = new ActionsAlertDialogCreator(itemView.getContext(), R.string.action_rateable_movie_dialog_title_rate_movie);
         actionsAlertDialogCreator.create(new Actions(Arrays.asList(
-                new Action(R.id.action_rateable_movie_rate_half_star, R.string.action_rateable_movie_rate_half_star, () -> viewModel.actions().onRate(0.5f)),
-                new Action(R.id.action_rateable_movie_rate_one_star, R.string.action_rateable_movie_rate_one_star, () -> viewModel.actions().onRate((float) 1)),
-                new Action(R.id.action_rateable_movie_rate_one_half_star, R.string.action_rateable_movie_rate_one_half_star, () -> viewModel.actions().onRate(1.5f)),
-                new Action(R.id.action_rateable_movie_rate_two_star, R.string.action_rateable_movie_rate_two_star, () -> viewModel.actions().onRate((float) 2)),
-                new Action(R.id.action_rateable_movie_rate_two_half_star, R.string.action_rateable_movie_rate_two_half_star, () -> viewModel.actions().onRate(2.5f)),
-                new Action(R.id.action_rateable_movie_rate_three_star, R.string.action_rateable_movie_rate_three_star, () -> viewModel.actions().onRate((float) 3)),
-                new Action(R.id.action_rateable_movie_rate_three_half_star, R.string.action_rateable_movie_rate_three_half_star, () -> viewModel.actions().onRate(3.5f)),
-                new Action(R.id.action_rateable_movie_rate_four_star, R.string.action_rateable_movie_rate_four_star, () -> viewModel.actions().onRate((float) 4)),
-                new Action(R.id.action_rateable_movie_rate_four_half_star, R.string.action_rateable_movie_rate_four_half_star, () -> viewModel.actions().onRate(4.5f)),
-                new Action(R.id.action_rateable_movie_rate_five_star, R.string.action_rateable_movie_rate_five_star, () -> viewModel.actions().onRate((float) 5))
+                new Action(R.id.action_rateable_movie_rate_half_star, R.string.action_rateable_movie_rate_half_star, () -> viewModel.actions.onRate(0.5f)),
+                new Action(R.id.action_rateable_movie_rate_one_star, R.string.action_rateable_movie_rate_one_star, () -> viewModel.actions.onRate((float) 1)),
+                new Action(R.id.action_rateable_movie_rate_one_half_star, R.string.action_rateable_movie_rate_one_half_star, () -> viewModel.actions.onRate(1.5f)),
+                new Action(R.id.action_rateable_movie_rate_two_star, R.string.action_rateable_movie_rate_two_star, () -> viewModel.actions.onRate((float) 2)),
+                new Action(R.id.action_rateable_movie_rate_two_half_star, R.string.action_rateable_movie_rate_two_half_star, () -> viewModel.actions.onRate(2.5f)),
+                new Action(R.id.action_rateable_movie_rate_three_star, R.string.action_rateable_movie_rate_three_star, () -> viewModel.actions.onRate((float) 3)),
+                new Action(R.id.action_rateable_movie_rate_three_half_star, R.string.action_rateable_movie_rate_three_half_star, () -> viewModel.actions.onRate(3.5f)),
+                new Action(R.id.action_rateable_movie_rate_four_star, R.string.action_rateable_movie_rate_four_star, () -> viewModel.actions.onRate((float) 4)),
+                new Action(R.id.action_rateable_movie_rate_four_half_star, R.string.action_rateable_movie_rate_four_half_star, () -> viewModel.actions.onRate(4.5f)),
+                new Action(R.id.action_rateable_movie_rate_five_star, R.string.action_rateable_movie_rate_five_star, () -> viewModel.actions.onRate((float) 5))
         ))).show();
     }
 
     private void bindForTouchAccess(RateableMovieViewModel viewModel) {
-        itemView.setOnClickListener(v -> viewModel.actions().onSelectMovie());
-        likeImageView.setOnClickListener(v -> viewModel.actions().onToggleLike());
+        itemView.setOnClickListener(v -> viewModel.actions.onSelectMovie());
+        likeImageView.setOnClickListener(v -> viewModel.actions.onToggleLike());
         ratingBar.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
             if (fromUser) {
-                viewModel.actions().onRate(rating);
+                viewModel.actions.onRate(rating);
             }
         });
     }

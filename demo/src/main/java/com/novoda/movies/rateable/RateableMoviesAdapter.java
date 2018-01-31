@@ -35,6 +35,6 @@ class RateableMoviesAdapter extends RecyclerView.Adapter<RateableMovieViewHolder
 
     @Override
     public long getItemId(int position) {
-        return viewModels.get(position).id();
+        return viewModels.get(position).id;
     }
 }

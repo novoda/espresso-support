@@ -2,20 +2,24 @@ package com.novoda.movies.rateable;
 
 import android.support.annotation.DrawableRes;
 
-interface RateableMovieViewModel {
+class RateableMovieViewModel {
 
-    long id();
-
-    String title();
-
-    float rating();
-
-    boolean liked();
-
+    final long id;
+    final String title;
+    final float rating;
+    final boolean liked;
     @DrawableRes
-    int poster();
+    final int poster;
+    final UserActions actions;
 
-    UserActions actions();
+    RateableMovieViewModel(long id, String title, float rating, boolean liked, int poster, UserActions actions) {
+        this.id = id;
+        this.title = title;
+        this.rating = rating;
+        this.liked = liked;
+        this.poster = poster;
+        this.actions = actions;
+    }
 
     interface UserActions {
 

@@ -51,36 +51,6 @@ class RateableMovieViewModelBuilder {
     }
 
     RateableMovieViewModel build() {
-        return new RateableMovieViewModel() {
-            @Override
-            public long id() {
-                return id;
-            }
-
-            @Override
-            public String title() {
-                return title;
-            }
-
-            @Override
-            public float rating() {
-                return rating;
-            }
-
-            @Override
-            public boolean liked() {
-                return liked;
-            }
-
-            @Override
-            public int poster() {
-                return poster;
-            }
-
-            @Override
-            public UserActions actions() {
-                return actions;
-            }
-        };
+        return new RateableMovieViewModel(id, title, rating, liked, poster, actions);
     }
 }
