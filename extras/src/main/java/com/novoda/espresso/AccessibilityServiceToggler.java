@@ -3,6 +3,8 @@ package com.novoda.espresso;
 import android.content.ContentResolver;
 import android.provider.Settings;
 
+import com.novoda.accessibility.Service;
+
 class AccessibilityServiceToggler {
 
     private static final String EMPTY_STRING = "";
@@ -20,22 +22,22 @@ class AccessibilityServiceToggler {
 
     void enable(Service service) {
         String enabledServices = secureSettings.enabledAccessibilityServices();
-        if (enabledServices.contains(service.qualifiedName)) {
+        if (enabledServices.contains(service.flattenedComponentName())) {
             return;
         }
-        secureSettings.enabledAccessibilityServices(enabledServices + SERVICES_SEPARATOR + service.qualifiedName);
+        secureSettings.enabledAccessibilityServices(enabledServices + SERVICES_SEPARATOR + service.flattenedComponentName());
     }
 
     void disable(Service service) {
         String enabledServices = secureSettings.enabledAccessibilityServices();
-        if (!enabledServices.contains(service.qualifiedName)) {
+        if (!enabledServices.contains(service.flattenedComponentName())) {
             return;
         }
 
         String remainingServices = enabledServices
-                .replace(SERVICES_SEPARATOR + service.qualifiedName, EMPTY_STRING)
-                .replace(service.qualifiedName + SERVICES_SEPARATOR, EMPTY_STRING)
-                .replace(service.qualifiedName, EMPTY_STRING);
+                .replace(SERVICES_SEPARATOR + service.flattenedComponentName(), EMPTY_STRING)
+                .replace(service.flattenedComponentName() + SERVICES_SEPARATOR, EMPTY_STRING)
+                .replace(service.flattenedComponentName(), EMPTY_STRING);
         secureSettings.enabledAccessibilityServices(remainingServices);
     }
 
@@ -65,23 +67,6 @@ class AccessibilityServiceToggler {
 
         private void accessibilityEnabled(String enabled) {
             Settings.Secure.putString(contentResolver, Settings.Secure.ACCESSIBILITY_ENABLED, enabled);
-        }
-    }
-
-    enum Service {
-
-        TALKBACK("com.google.android.marvin.talkback/.TalkBackService"),
-        SWITCH_ACCESS("com.google.android.marvin.talkback/com.android.switchaccess.SwitchAccessService"),
-        SELECT_TO_SPEAK("com.google.android.marvin.talkback/com.google.android.accessibility.selecttospeak.SelectToSpeakService");
-
-        private final String qualifiedName;
-
-        Service(String qualifiedName) {
-            this.qualifiedName = qualifiedName;
-        }
-
-        String qualifiedName() {
-            return qualifiedName;
         }
     }
 }

@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.view.accessibility.AccessibilityManager;
 
+import com.novoda.accessibility.Service;
+
 import org.junit.rules.TestRule;
 
 import java.util.List;
-
-import static com.novoda.espresso.AccessibilityServiceToggler.Service;
 
 public class AccessibilityRules {
 
@@ -56,7 +56,7 @@ public class AccessibilityRules {
             public boolean reportsEnabled() {
                 List<AccessibilityServiceInfo> enabledAccessibilityServiceList = a11yManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
                 for (AccessibilityServiceInfo accessibilityServiceInfo : enabledAccessibilityServiceList) {
-                    if (accessibilityServiceInfo.getId().equals(service.qualifiedName())) {
+                    if (accessibilityServiceInfo.getId().equals(service.flattenedComponentName())) {
                         return true;
                     }
                 }
