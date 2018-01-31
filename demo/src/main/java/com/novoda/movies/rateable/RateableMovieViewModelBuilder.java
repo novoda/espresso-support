@@ -1,4 +1,4 @@
-package com.novoda.movies.topten;
+package com.novoda.movies.rateable;
 
 import android.support.annotation.DrawableRes;
 
@@ -11,16 +11,13 @@ class RateableMovieViewModelBuilder {
     private int poster;
     private RateableMovieViewModel.UserActions actions;
 
-    RateableMovieViewModelBuilder() {
-    }
-
-    RateableMovieViewModelBuilder(RateableMovieViewModel viewModel) {
-        this.id = viewModel.id();
-        this.title = viewModel.title();
-        this.rating = viewModel.rating();
-        this.liked = viewModel.liked();
-        this.poster = viewModel.poster();
-        this.actions = viewModel.actions();
+    RateableMovieViewModelBuilder(long id, String title, @DrawableRes int poster) {
+        this.id = id;
+        this.title = title;
+        this.poster = poster;
+        this.liked = false;
+        this.rating = 0;
+        this.actions = RateableMovieViewModel.UserActions.NO_OP;
     }
 
     RateableMovieViewModelBuilder id(long id) {

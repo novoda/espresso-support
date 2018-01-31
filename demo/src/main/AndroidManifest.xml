@@ -10,7 +10,7 @@
     tools:ignore="GoogleAppIndexingWarning">
 
     <activity android:name=".DemoMainActivity" />
-    <activity android:name=".topten.TopTenActivity">
+    <activity android:name=".rateable.RateableMoviesActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />

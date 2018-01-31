@@ -1,4 +1,4 @@
-package com.novoda.movies.topten;
+package com.novoda.movies.rateable;
 
 import android.support.annotation.DrawableRes;
 
@@ -18,6 +18,20 @@ interface RateableMovieViewModel {
     UserActions actions();
 
     interface UserActions {
+
+        UserActions NO_OP = new UserActions() {
+            @Override
+            public void onSelectMovie() {
+            }
+
+            @Override
+            public void onToggleLike() {
+            }
+
+            @Override
+            public void onRate(float rating) {
+            }
+        };
 
         void onSelectMovie();
 

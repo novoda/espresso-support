@@ -11,7 +11,7 @@
         android:layout_height="138dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/topten_arrival" />
+        tools:src="@drawable/movie_arrival" />
 
     <TextView
         android:id="@+id/item_rateable_text_title"
