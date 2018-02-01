@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <item name="action_click_movie" type="id" />
-  <item name="action_click_play_movie" type="id" />
-  <item name="action_click_favorite_movie" type="id" />
+    <item name="action_click_movie" type="id" />
+    <item name="action_click_play_movie" type="id" />
+    <item name="action_click_favorite_movie" type="id" />
+
+    <item name="action_rateable_movie_click_select" type="id" />
+    <item name="action_rateable_movie_click_toggle_like" type="id" />
+    <item name="action_rateable_movie_click_rate" type="id" />
+    <item name="action_rateable_movie_rate_half_star" type="id" />
+    <item name="action_rateable_movie_rate_one_star" type="id" />
+    <item name="action_rateable_movie_rate_one_half_star" type="id" />
+    <item name="action_rateable_movie_rate_two_star" type="id" />
+    <item name="action_rateable_movie_rate_two_half_star" type="id" />
+    <item name="action_rateable_movie_rate_three_star" type="id" />
+    <item name="action_rateable_movie_rate_three_half_star" type="id" />
+    <item name="action_rateable_movie_rate_four_star" type="id" />
+    <item name="action_rateable_movie_rate_four_half_star" type="id" />
+    <item name="action_rateable_movie_rate_five_star" type="id" />
 
 </resources>

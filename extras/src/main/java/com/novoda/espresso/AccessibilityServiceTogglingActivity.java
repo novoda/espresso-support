@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.novoda.espresso.AccessibilityServiceToggler.Service;
+import com.novoda.accessibility.Service;
 
 public class AccessibilityServiceTogglingActivity extends Activity {
 

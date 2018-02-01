@@ -25,6 +25,7 @@ android {
 
 dependencies {
     compile libraries.supportAnnotations
+    compile libraries.accessibilitools
     testImplementation libraries.mockitoCore
     testImplementation libraries.jUnit
 }

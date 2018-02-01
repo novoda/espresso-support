@@ -14,15 +14,13 @@ ext {
             userOrg: 'novoda',
             groupId: 'com.novoda',
             version: '1.0.0',
-            website: 'https://github.com/novoda/spikes/tree/master/espresso-support'
+            website: 'https://github.com/novoda/espresso-support'
     ]
 }
 
 allprojects {
     repositories {
+        google()
         jcenter()
-        maven {
-            url "https://maven.google.com"
-        }
     }
 }

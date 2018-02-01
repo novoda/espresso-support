@@ -1,6 +1,7 @@
 package com.novoda.espresso;
 
-import com.novoda.espresso.AccessibilityServiceToggler.Service;
+
+import com.novoda.accessibility.Service;
 
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
@@ -53,12 +54,12 @@ public class AccessibilityServiceTogglerTest {
 
             serviceToggler.enable(service);
 
-            verify(secureSettings).enabledAccessibilityServices(endsWith(":" + service.qualifiedName()));
+            verify(secureSettings).enabledAccessibilityServices(endsWith(":" + service.flattenedComponentName()));
         }
 
         @Test
         public void givenAlreadyEnabled_whenCallingEnable_thenDoesNotModifyState() {
-            given(secureSettings.enabledAccessibilityServices()).willReturn(service.qualifiedName());
+            given(secureSettings.enabledAccessibilityServices()).willReturn(service.flattenedComponentName());
 
             serviceToggler.enable(service);
 
@@ -67,7 +68,7 @@ public class AccessibilityServiceTogglerTest {
 
         @Test
         public void givenServiceEnabledLastAmongOthers_whenCallingDisable_thenRemovesServiceFromList() {
-            given(secureSettings.enabledAccessibilityServices()).willReturn("foo:" + service.qualifiedName());
+            given(secureSettings.enabledAccessibilityServices()).willReturn("foo:" + service.flattenedComponentName());
 
             serviceToggler.disable(service);
 
@@ -76,7 +77,7 @@ public class AccessibilityServiceTogglerTest {
 
         @Test
         public void givenServiceEnabledFirstAmongOthers_whenCallingDisable_thenRemovesServiceFromList() {
-            given(secureSettings.enabledAccessibilityServices()).willReturn(service.qualifiedName() + ":foo");
+            given(secureSettings.enabledAccessibilityServices()).willReturn(service.flattenedComponentName() + ":foo");
 
             serviceToggler.disable(service);
 
@@ -85,7 +86,7 @@ public class AccessibilityServiceTogglerTest {
 
         @Test
         public void givenServiceEnabledAmongOthers_whenCallingDisable_thenRemovesServiceFromList() {
-            given(secureSettings.enabledAccessibilityServices()).willReturn("foo:" + service.qualifiedName() + ":bar");
+            given(secureSettings.enabledAccessibilityServices()).willReturn("foo:" + service.flattenedComponentName() + ":bar");
 
             serviceToggler.disable(service);
 
@@ -94,7 +95,7 @@ public class AccessibilityServiceTogglerTest {
 
         @Test
         public void givenServiceEnabledIsOnlyOneEnabled_whenCallingDisable_thenSetsEmptyList() {
-            given(secureSettings.enabledAccessibilityServices()).willReturn(service.qualifiedName());
+            given(secureSettings.enabledAccessibilityServices()).willReturn(service.flattenedComponentName());
 
             serviceToggler.disable(service);
 

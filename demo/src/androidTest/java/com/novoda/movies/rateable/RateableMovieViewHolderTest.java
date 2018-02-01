@@ -1,4 +1,4 @@
-package com.novoda.movies.topten;
+package com.novoda.movies.rateable;
 
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
@@ -29,7 +29,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFro
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.novoda.espresso.ViewTestRule.underTest;
-import static com.novoda.movies.topten.RateableMovieViewModelFixtures.viewModel;
+import static com.novoda.movies.rateable.RateableMovieViewModelFixtures.viewModel;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 

@@ -15,7 +15,7 @@ ext {
                     androidGradle : 'com.android.tools.build:gradle:3.0.1',
                     bintrayRelease: 'com.novoda:bintray-release:0.7.0'
             ],
-            accessibilitools       : 'com.novoda:accessibilitools:1.4.0',
+            accessibilitools       : 'com.novoda:accessibilitools:1.5.0',
             androidTestRunner      : 'com.android.support.test:runner:1.0.1',
             androidEspressoCore    : 'com.android.support.test.espresso:espresso-core:3.0.1',
             jUnit                  : 'junit:junit:4.12',
