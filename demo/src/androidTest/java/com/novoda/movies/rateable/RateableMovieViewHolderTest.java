@@ -2,7 +2,6 @@ package com.novoda.movies.rateable;
 
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.action.CoordinatesProvider;
 import android.support.test.espresso.action.GeneralClickAction;
 import android.support.test.espresso.action.Press;
 import android.support.test.espresso.action.Tap;
@@ -87,7 +86,7 @@ public class RateableMovieViewHolderTest {
         verify(userActions).onRate(4.5f);
     }
 
-    private static ViewAction setRating(final float rating) {
+    private static ViewAction setRating(float rating) {
         if (rating % 0.5 != 0) {
             throw new IllegalArgumentException("Rating must be multiple of 0.5f");
         }
@@ -107,16 +106,13 @@ public class RateableMovieViewHolderTest {
             public void perform(UiController uiController, View view) {
                 GeneralClickAction viewAction = new GeneralClickAction(
                         Tap.SINGLE,
-                        new CoordinatesProvider() {
-                            @Override
-                            public float[] calculateCoordinates(View view) {
-                                int numStars = ((RatingBar) view).getNumStars();
-                                float widthPerStar = 1f * view.getWidth() / numStars;
-                                float percent = rating / numStars;
-                                float x = view.getLeft() + view.getWidth() * percent;
-                                float y = view.getTop() + (view.getBottom() - view.getTop()) * 0.5f;
-                                return new float[]{x - widthPerStar * 0.5f, y};
-                            }
+                        viewToTap -> {
+                            int numStars = ((RatingBar) viewToTap).getNumStars();
+                            float widthPerStar = 1f * viewToTap.getWidth() / numStars;
+                            float percent = rating / numStars;
+                            float x = viewToTap.getLeft() + viewToTap.getWidth() * percent;
+                            float y = viewToTap.getTop() + (viewToTap.getBottom() - viewToTap.getTop()) * 0.5f;
+                            return new float[]{x - widthPerStar * 0.5f, y};
                         },
                         Press.FINGER,
                         InputDevice.SOURCE_UNKNOWN,
