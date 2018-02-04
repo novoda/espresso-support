@@ -52,7 +52,7 @@ class RateableMovieViewHolder extends RecyclerView.ViewHolder {
         ViewCompat.setAccessibilityDelegate(itemView, a11yDelegate);
         itemView.setContentDescription(viewModel.title + ", rating " + viewModel.rating + ", liked: " + viewModel.liked);
 
-        if (a11yServices.isSpokenFeedbackEnabled() || a11yServices.isSwitchAccessEnabled() || !itemView.isInTouchMode()) {
+        if (a11yServices.isSpokenFeedbackEnabled() || a11yServices.isSwitchAccessEnabled()) {
             bindForIndirectAccess(actions);
             a11yDelegate.setClickLabel(R.string.action_rateable_movie_usage_hint_click);
         } else {
