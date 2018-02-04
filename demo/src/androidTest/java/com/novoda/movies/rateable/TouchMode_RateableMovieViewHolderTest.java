@@ -29,7 +29,7 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class RateableMovieViewHolderTest {
+public class TouchMode_RateableMovieViewHolderTest {
 
     @Rule
     public ViewTestRule viewTestRule = new ViewTestRule(R.layout.item_view_rateable_movie);
