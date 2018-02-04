@@ -2,13 +2,8 @@ package com.novoda.movies.rateable;
 
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.action.GeneralClickAction;
-import android.support.test.espresso.action.Press;
-import android.support.test.espresso.action.Tap;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
-import android.view.InputDevice;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RatingBar;
 
@@ -104,21 +99,7 @@ public class RateableMovieViewHolderTest {
 
             @Override
             public void perform(UiController uiController, View view) {
-                GeneralClickAction viewAction = new GeneralClickAction(
-                        Tap.SINGLE,
-                        viewToTap -> {
-                            int numStars = ((RatingBar) viewToTap).getNumStars();
-                            float widthPerStar = 1f * viewToTap.getWidth() / numStars;
-                            float percent = rating / numStars;
-                            float x = viewToTap.getLeft() + viewToTap.getWidth() * percent;
-                            float y = viewToTap.getTop() + (viewToTap.getBottom() - viewToTap.getTop()) * 0.5f;
-                            return new float[]{x - widthPerStar * 0.5f, y};
-                        },
-                        Press.FINGER,
-                        InputDevice.SOURCE_UNKNOWN,
-                        MotionEvent.BUTTON_PRIMARY
-                );
-                viewAction.perform(uiController, view);
+                ((RatingBar) view).setRating(rating);
             }
         };
     }

@@ -45,6 +45,7 @@ class RateableMovieViewHolder extends RecyclerView.ViewHolder {
         posterImageView.setImageResource(viewModel.poster);
         titleTextView.setText(viewModel.title);
         likeImageView.setImageResource(viewModel.liked ? R.drawable.ic_favorite_24dp : R.drawable.ic_favorite_border_24dp);
+        ratingBar.setOnRatingBarChangeListener(null);
         ratingBar.setRating(viewModel.rating);
         Actions actions = collateActionsFor(viewModel);
         ActionsAccessibilityDelegate a11yDelegate = new ActionsAccessibilityDelegate(itemView.getResources(), actions);
@@ -112,9 +113,7 @@ class RateableMovieViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(v -> viewModel.actions.onSelectMovie());
         likeImageView.setOnClickListener(v -> viewModel.actions.onToggleLike());
         ratingBar.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
-            if (fromUser) {
-                viewModel.actions.onRate(rating);
-            }
+            viewModel.actions.onRate(rating);
         });
     }
 }
