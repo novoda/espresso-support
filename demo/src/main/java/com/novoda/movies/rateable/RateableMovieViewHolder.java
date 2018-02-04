@@ -72,7 +72,6 @@ class RateableMovieViewHolder extends RecyclerView.ViewHolder {
 
     private void bindForIndirectAccess(Actions actions) {
         itemView.setOnClickListener(v -> new ActionsAlertDialogCreator(itemView.getContext()).create(actions).show());
-        likeImageView.setClickable(false);
         ratingBar.setOnRatingBarChangeListener(null);
         ratingBar.setIsIndicator(true);
     }
