@@ -74,6 +74,7 @@ class RateableMovieViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(v -> new ActionsAlertDialogCreator(itemView.getContext()).create(actions).show());
         likeImageView.setClickable(false);
         ratingBar.setOnRatingBarChangeListener(null);
+        ratingBar.setIsIndicator(true);
     }
 
     private Action selectActionFor(RateableMovieViewModel viewModel) {
@@ -115,5 +116,6 @@ class RateableMovieViewHolder extends RecyclerView.ViewHolder {
         ratingBar.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
             viewModel.actions.onRate(rating);
         });
+        ratingBar.setIsIndicator(false);
     }
 }

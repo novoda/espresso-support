@@ -52,7 +52,7 @@ public class SwitchAccess_RateableMovieViewHolderTest {
 
     @Test
     public void clickingOnItemViewOpensMenu() {
-        RateableMovieViewModel viewModel = viewModel().build();
+        RateableMovieViewModel viewModel = viewModel().liked(false).build();
         rateableMovieViewHolder.bind(viewModel);
 
         onView(underTest()).perform(click());
@@ -72,7 +72,7 @@ public class SwitchAccess_RateableMovieViewHolderTest {
 
     @Test
     public void clickingOnLikeOpensMenu() {
-        RateableMovieViewModel viewModel = viewModel().build();
+        RateableMovieViewModel viewModel = viewModel().liked(false).build();
         rateableMovieViewHolder.bind(viewModel);
 
         onView(withId(R.id.item_rateable_image_like)).perform(click());
@@ -82,7 +82,7 @@ public class SwitchAccess_RateableMovieViewHolderTest {
 
     @Test
     public void clickingOnRateOpensMenu() {
-        RateableMovieViewModel viewModel = viewModel().build();
+        RateableMovieViewModel viewModel = viewModel().liked(false).build();
         rateableMovieViewHolder.bind(viewModel);
 
         onView(withId(R.id.item_rateable_rating)).perform(click());
