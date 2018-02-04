@@ -32,7 +32,7 @@ import static org.mockito.Mockito.verify;
 public class TouchMode_RateableMovieViewHolderTest {
 
     @Rule
-    public ViewTestRule viewTestRule = new ViewTestRule(R.layout.item_view_rateable_movie);
+    public ViewTestRule<View> viewTestRule = new ViewTestRule<>(R.layout.item_view_rateable_movie);
 
     private RateableMovieViewHolder rateableMovieViewHolder;
     private RateableMovieViewModel.UserActions userActions = mock(RateableMovieViewModel.UserActions.class);
@@ -46,7 +46,7 @@ public class TouchMode_RateableMovieViewHolderTest {
     public void bindsTitle() {
         RateableMovieViewModel viewModel = viewModel().title("Arrival").rating(5).liked(true).build();
 
-        rateableMovieViewHolder.bind(viewModel);
+        viewTestRule.runOnMainSynchronously(view -> rateableMovieViewHolder.bind(viewModel));
 
         onView(withId(R.id.item_rateable_text_title)).check(matches(withText("Arrival")));
     }
@@ -54,7 +54,7 @@ public class TouchMode_RateableMovieViewHolderTest {
     @Test
     public void bindsOnSelectAction() {
         RateableMovieViewModel viewModel = viewModel(userActions).build();
-        rateableMovieViewHolder.bind(viewModel);
+        viewTestRule.runOnMainSynchronously(view -> rateableMovieViewHolder.bind(viewModel));
 
         onView(underTest()).perform(click());
 
@@ -64,7 +64,7 @@ public class TouchMode_RateableMovieViewHolderTest {
     @Test
     public void bindsOnToggleLikeAction() {
         RateableMovieViewModel viewModel = viewModel(userActions).build();
-        rateableMovieViewHolder.bind(viewModel);
+        viewTestRule.runOnMainSynchronously(view -> rateableMovieViewHolder.bind(viewModel));
 
         onView(withId(R.id.item_rateable_image_like)).perform(click());
 
@@ -74,7 +74,7 @@ public class TouchMode_RateableMovieViewHolderTest {
     @Test
     public void bindsOnRateAction() {
         RateableMovieViewModel viewModel = viewModel(userActions).build();
-        rateableMovieViewHolder.bind(viewModel);
+        viewTestRule.runOnMainSynchronously(view -> rateableMovieViewHolder.bind(viewModel));
 
         onView(withId(R.id.item_rateable_rating)).perform(setRating(4.5f));
 

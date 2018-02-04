@@ -2,6 +2,7 @@ package com.novoda.movies.rateable;
 
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.View;
 
 import com.novoda.espresso.AccessibilityRules;
 import com.novoda.espresso.ViewTestRule;
@@ -28,7 +29,7 @@ import static org.mockito.Mockito.verify;
 @LargeTest
 public class SwitchAccess_RateableMovieViewHolderTest {
 
-    private ViewTestRule viewTestRule = new ViewTestRule(R.layout.item_view_rateable_movie);
+    private ViewTestRule<View> viewTestRule = new ViewTestRule<>(R.layout.item_view_rateable_movie);
 
     @Rule
     public RuleChain ruleChain = RuleChain.outerRule(AccessibilityRules.createSwitchAccessTestRule()).around(viewTestRule);
@@ -45,7 +46,7 @@ public class SwitchAccess_RateableMovieViewHolderTest {
     public void bindsTitle() {
         RateableMovieViewModel viewModel = viewModel().title("Arrival").rating(5).liked(true).build();
 
-        rateableMovieViewHolder.bind(viewModel);
+        viewTestRule.runOnMainSynchronously(view -> rateableMovieViewHolder.bind(viewModel));
 
         onView(withId(R.id.item_rateable_text_title)).check(matches(withText("Arrival")));
     }
@@ -53,7 +54,7 @@ public class SwitchAccess_RateableMovieViewHolderTest {
     @Test
     public void clickingOnItemViewOpensMenu() {
         RateableMovieViewModel viewModel = viewModel().liked(false).build();
-        rateableMovieViewHolder.bind(viewModel);
+        viewTestRule.runOnMainSynchronously(view -> rateableMovieViewHolder.bind(viewModel));
 
         onView(underTest()).perform(click());
 
@@ -63,7 +64,7 @@ public class SwitchAccess_RateableMovieViewHolderTest {
     @Test
     public void clickingOnItemViewOpensMenuWithUndoLike() {
         RateableMovieViewModel viewModel = viewModel().liked(true).build();
-        rateableMovieViewHolder.bind(viewModel);
+        viewTestRule.runOnMainSynchronously(view -> rateableMovieViewHolder.bind(viewModel));
 
         onView(underTest()).perform(click());
 
@@ -73,7 +74,7 @@ public class SwitchAccess_RateableMovieViewHolderTest {
     @Test
     public void clickingOnLikeOpensMenu() {
         RateableMovieViewModel viewModel = viewModel().liked(false).build();
-        rateableMovieViewHolder.bind(viewModel);
+        viewTestRule.runOnMainSynchronously(view -> rateableMovieViewHolder.bind(viewModel));
 
         onView(withId(R.id.item_rateable_image_like)).perform(click());
 
@@ -83,7 +84,7 @@ public class SwitchAccess_RateableMovieViewHolderTest {
     @Test
     public void clickingOnRateOpensMenu() {
         RateableMovieViewModel viewModel = viewModel().liked(false).build();
-        rateableMovieViewHolder.bind(viewModel);
+        viewTestRule.runOnMainSynchronously(view -> rateableMovieViewHolder.bind(viewModel));
 
         onView(withId(R.id.item_rateable_rating)).perform(click());
 
@@ -93,7 +94,7 @@ public class SwitchAccess_RateableMovieViewHolderTest {
     @Test
     public void clickingOnRateActionOpensRateMenu() {
         RateableMovieViewModel viewModel = viewModel().build();
-        rateableMovieViewHolder.bind(viewModel);
+        viewTestRule.runOnMainSynchronously(view -> rateableMovieViewHolder.bind(viewModel));
         onView(underTest()).perform(click());
 
         onView(withText(R.string.action_rateable_movie_click_rate)).perform(click());
@@ -104,7 +105,7 @@ public class SwitchAccess_RateableMovieViewHolderTest {
     @Test
     public void bindsRateAction() {
         RateableMovieViewModel viewModel = viewModel(userActions).build();
-        rateableMovieViewHolder.bind(viewModel);
+        viewTestRule.runOnMainSynchronously(view -> rateableMovieViewHolder.bind(viewModel));
         onView(underTest()).perform(click());
         onView(withText(R.string.action_rateable_movie_click_rate)).perform(click());
 
