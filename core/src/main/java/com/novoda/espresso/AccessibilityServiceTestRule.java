@@ -75,11 +75,6 @@ class AccessibilityServiceTestRule implements TestRule {
         private AssertionError serviceToggleTimeOutError() {
             return new AssertionError("Spent too long waiting for " + helper.serviceName() + " to toggle.");
         }
-
-        interface Condition {
-
-            boolean holds();
-        }
     }
 
     interface Helper {
