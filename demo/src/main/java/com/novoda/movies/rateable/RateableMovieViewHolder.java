@@ -45,13 +45,14 @@ class RateableMovieViewHolder extends RecyclerView.ViewHolder {
         posterImageView.setImageResource(viewModel.poster);
         titleTextView.setText(viewModel.title);
         likeImageView.setImageResource(viewModel.liked ? R.drawable.ic_favorite_24dp : R.drawable.ic_favorite_border_24dp);
+        ratingBar.setOnRatingBarChangeListener(null);
         ratingBar.setRating(viewModel.rating);
         Actions actions = collateActionsFor(viewModel);
         ActionsAccessibilityDelegate a11yDelegate = new ActionsAccessibilityDelegate(itemView.getResources(), actions);
         ViewCompat.setAccessibilityDelegate(itemView, a11yDelegate);
         itemView.setContentDescription(viewModel.title + ", rating " + viewModel.rating + ", liked: " + viewModel.liked);
 
-        if (a11yServices.isSpokenFeedbackEnabled() || a11yServices.isSwitchAccessEnabled() || !itemView.isInTouchMode()) {
+        if (a11yServices.isSpokenFeedbackEnabled() || a11yServices.isSwitchAccessEnabled()) {
             bindForIndirectAccess(actions);
             a11yDelegate.setClickLabel(R.string.action_rateable_movie_usage_hint_click);
         } else {
@@ -71,8 +72,8 @@ class RateableMovieViewHolder extends RecyclerView.ViewHolder {
 
     private void bindForIndirectAccess(Actions actions) {
         itemView.setOnClickListener(v -> new ActionsAlertDialogCreator(itemView.getContext()).create(actions).show());
-        likeImageView.setClickable(false);
         ratingBar.setOnRatingBarChangeListener(null);
+        ratingBar.setIsIndicator(true);
     }
 
     private Action selectActionFor(RateableMovieViewModel viewModel) {
@@ -112,9 +113,8 @@ class RateableMovieViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(v -> viewModel.actions.onSelectMovie());
         likeImageView.setOnClickListener(v -> viewModel.actions.onToggleLike());
         ratingBar.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
-            if (fromUser) {
-                viewModel.actions.onRate(rating);
-            }
+            viewModel.actions.onRate(rating);
         });
+        ratingBar.setIsIndicator(false);
     }
 }
