@@ -2,27 +2,27 @@ package com.novoda.espresso;
 
 enum FontScale {
 
-    SMALL(0.85f),
-    NORMAL(1f),
-    LARGE(1.15f),
-    HUGE(1.3f);
+    SMALL(String.valueOf(0.85f)),
+    NORMAL(String.valueOf(1f)),
+    LARGE(String.valueOf(1.15f)),
+    HUGE(String.valueOf(1.3f));
 
-    private final float value;
+    private final String value;
 
-    FontScale(float value) {
+    FontScale(String value) {
         this.value = value;
     }
 
     static FontScale from(float scale) {
         for (FontScale fontScale : values()) {
-            if (fontScale.value() == scale) {
+            if (fontScale.value().equals(String.valueOf(scale))) {
                 return fontScale;
             }
         }
         throw new IllegalArgumentException("Unknown scale: " + scale);
     }
 
-    float value() {
+    String value() {
         return value;
     }
 }

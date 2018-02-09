@@ -1,18 +1,17 @@
 package com.novoda.espresso;
 
-import android.content.ContentResolver;
+import android.annotation.TargetApi;
+import android.app.UiAutomation;
 import android.content.res.Resources;
-import android.provider.Settings;
+import android.os.Build;
 
 class FontScaleSetting {
 
-    private final ContentResolver contentResolver;
+    private final UiAutomation uiAutomation;
     private final Resources resources;
 
-
-
-    FontScaleSetting(ContentResolver contentResolver, Resources resources) {
-        this.contentResolver = contentResolver;
+    FontScaleSetting(UiAutomation uiAutomation, Resources resources) {
+        this.uiAutomation = uiAutomation;
         this.resources = resources;
     }
 
@@ -20,11 +19,8 @@ class FontScaleSetting {
         return FontScale.from(resources.getConfiguration().fontScale);
     }
 
-    /**
-     * Prior to M, devices need to be rebooted in order to reload the configuration, making it
-     * useless for Espresso testing rules.
-     */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     void set(FontScale scale) {
-        Settings.System.putFloat(contentResolver, Settings.System.FONT_SCALE, scale.value());
+        uiAutomation.executeShellCommand("settings put system font_scale " + scale.value());
     }
 }
