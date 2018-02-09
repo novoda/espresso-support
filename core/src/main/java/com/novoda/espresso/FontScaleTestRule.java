@@ -6,22 +6,22 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-class FontSizeTestRule implements TestRule {
+class FontScaleTestRule implements TestRule {
 
     private final FontScaleSetting fontScaleSetting;
     private final FontScale fontScale;
 
-    FontSizeTestRule(FontScaleSetting fontScaleSetting, FontScale fontScale) {
+    FontScaleTestRule(FontScaleSetting fontScaleSetting, FontScale fontScale) {
         this.fontScaleSetting = fontScaleSetting;
         this.fontScale = fontScale;
     }
 
     @Override
     public Statement apply(Statement base, Description description) {
-        return new FontSizeStatement(base, fontScaleSetting, fontScale);
+        return new FontScaleStatement(base, fontScaleSetting, fontScale);
     }
 
-    private static class FontSizeStatement extends Statement {
+    private static class FontScaleStatement extends Statement {
 
         private static final int SLEEP_TO_WAIT_FOR_SETTING_MILLIS = 100;
         private static final int MAX_RETRIES_TO_WAIT_FOR_SETTING = 15;
@@ -30,7 +30,7 @@ class FontSizeTestRule implements TestRule {
         private final FontScaleSetting scaleSetting;
         private final FontScale scale;
 
-        FontSizeStatement(Statement baseStatement, FontScaleSetting scaleSetting, FontScale scale) {
+        FontScaleStatement(Statement baseStatement, FontScaleSetting scaleSetting, FontScale scale) {
             this.baseStatement = baseStatement;
             this.scaleSetting = scaleSetting;
             this.scale = scale;

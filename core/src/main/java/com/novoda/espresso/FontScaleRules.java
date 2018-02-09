@@ -1,9 +1,7 @@
 package com.novoda.espresso;
 
 import android.annotation.TargetApi;
-import android.app.Application;
 import android.app.Instrumentation;
-import android.content.Context;
 import android.os.Build;
 import android.support.test.InstrumentationRegistry;
 
@@ -13,22 +11,22 @@ public class FontScaleRules {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static TestRule smallFontScaleTestRule() {
-        return new FontSizeTestRule(createFontScaleSetting(), FontScale.SMALL);
+        return new FontScaleTestRule(createFontScaleSetting(), FontScale.SMALL);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static TestRule normalFontScaleTestRule() {
-        return new FontSizeTestRule(createFontScaleSetting(), FontScale.NORMAL);
+        return new FontScaleTestRule(createFontScaleSetting(), FontScale.NORMAL);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static TestRule largeFontScaleTestRule() {
-        return new FontSizeTestRule(createFontScaleSetting(), FontScale.LARGE);
+        return new FontScaleTestRule(createFontScaleSetting(), FontScale.LARGE);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static TestRule hugeFontScaleTestRule() {
-        return new FontSizeTestRule(createFontScaleSetting(), FontScale.HUGE);
+        return new FontScaleTestRule(createFontScaleSetting(), FontScale.HUGE);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
