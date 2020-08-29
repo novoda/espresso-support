@@ -25,6 +25,10 @@ public class ViewTestRule<T extends View> extends ActivityTestRule<EmptyActivity
         this(new InflateFromXmlViewCreator<T>(layoutId));
     }
 
+    public ViewTestRule(final T view) {
+        this(new DirectViewCreator<T>(view));
+    }
+
     public ViewTestRule(ViewCreator<T> viewCreator) {
         this(InstrumentationRegistry.getInstrumentation(), viewCreator);
     }
