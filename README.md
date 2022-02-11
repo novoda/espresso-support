@@ -1,3 +1,5 @@
+# 🛑 THIS REPOSITORY IS OFFICIALLY NO LONGER UNDER MAINTENANCE since 10/02/2022 🛑
+
 # espresso-support [![Download](https://api.bintray.com/packages/novoda/maven/espresso-support/images/download.svg)](https://bintray.com/novoda/maven/espresso-support/_latestVersion) [![License](https://raw.githubusercontent.com/novoda/novoda/master/assets/btn_apache_lisence.png)](LICENSE)
 
 This library includes components which facilitate [testing Views in isolation](https://www.novoda.com/blog/testing-views-in-isolation-with-espresso/) and [running Espresso tests with Google TalkBack enabled](https://www.novoda.com/blog/testing-talkback-in-isolation-with-espresso/).
